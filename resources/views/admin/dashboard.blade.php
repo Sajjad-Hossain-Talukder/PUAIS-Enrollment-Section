@@ -173,7 +173,7 @@
                         <div class="card my-3" >
                             <img src="uploaded_images/course_image.png" class="card-img-top">
                             <div class="card-body bg-light">
-                                <a href="#" class="stretched-link text-dark"> <h4>Class Routine</h4> </a>
+                                <a href="{{url('class-routine')}}" class="stretched-link text-dark"> <h4>Class Routine</h4> </a>
                             </div>
                         </div>
                     </div>

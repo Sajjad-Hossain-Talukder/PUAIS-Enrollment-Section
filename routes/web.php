@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClassRoutine;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +33,13 @@ Route::get('admin-login',function(){
 Route::get('admin-dashboard',function(){
     return view('admin.dashboard');
 });
+
 Route::get('student-register',function(){
     return view('admin.student_register');
 });
 Route::get('teacher-register',function(){
     return view('admin.teacher_register');
 });
+
+
+Route::get('class-routine', [ClassRoutine::class , 'rout']);
