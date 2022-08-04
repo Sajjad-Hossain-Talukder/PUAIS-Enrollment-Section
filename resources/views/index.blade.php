@@ -49,10 +49,10 @@
                             <a href="{{url('teacher/login')}}" class="btn btn-outline-dark" style="width:11rem;"><h4>Teacher</h4></a>      
                         </div>
                         <div class="col-lg-4">
-                        <a href="{{url('teacher.login')}}" class="btn btn-outline-dark" style="width:14rem;"><h4>Admin</h4></a>     
+                        <a href="{{url('admin/login')}}" class="btn btn-outline-dark" style="width:14rem;"><h4>Admin</h4></a>     
                         </div>
                         <div class="col-lg-4">
-                            <a href="{{url('teacher.login')}}" class="btn btn-outline-dark" style="width:11rem;"><h4>Student</h4></a>     
+                            <a href="{{url('student/login')}}" class="btn btn-outline-dark" style="width:11rem;"><h4>Student</h4></a>     
                         </div>
                     </div>
                 </div>

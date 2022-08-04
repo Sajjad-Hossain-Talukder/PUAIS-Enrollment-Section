@@ -20,3 +20,9 @@ Route::get('/', function () {
 Route::get('teacher/login',function(){
     return view('teacher.login');
 });
+Route::get('student/login',function(){
+    return view('student.login');
+});
+Route::get('admin/login',function(){
+    return view('admin.login');
+});
