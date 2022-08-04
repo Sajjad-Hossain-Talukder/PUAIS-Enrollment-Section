@@ -26,3 +26,7 @@ Route::get('student/login',function(){
 Route::get('admin/login',function(){
     return view('admin.login');
 });
+Route::get('student-register',function(){
+    return view('admin.student_register');
+});
+

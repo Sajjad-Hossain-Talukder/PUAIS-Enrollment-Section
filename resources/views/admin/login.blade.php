@@ -82,9 +82,11 @@
                         </div>
                         </form>
                     </div>
+
                     <div class="card-footer text-center">
                         <h6>Need an Account ? <a href="admin_resister.php" style="text-decoration : none;">Resister</a> </h6>
                     </div>
+                    
                 </div>
             </div>
         </div>
