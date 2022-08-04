@@ -17,16 +17,23 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('teacher/login',function(){
+Route::get('teacher-login',function(){
     return view('teacher.login');
 });
-Route::get('student/login',function(){
+Route::get('student-login',function(){
     return view('student.login');
 });
-Route::get('admin/login',function(){
+Route::get('admin-login',function(){
     return view('admin.login');
+});
+
+
+Route::get('admin-dashboard',function(){
+    return view('admin.dashboard');
 });
 Route::get('student-register',function(){
     return view('admin.student_register');
 });
-
+Route::get('teacher-register',function(){
+    return view('admin.teacher_register');
+});

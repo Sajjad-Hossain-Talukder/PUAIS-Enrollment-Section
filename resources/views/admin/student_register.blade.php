@@ -39,17 +39,17 @@
     </div>
 
 
+    
+    <div class="text-center mt-5"><h2>Student Resister</h2></div>
+    
+
     <div class="container mt-5">
         <div class="row">
             <div class="col-lg-6">
                 <div class="card">
-                        <div class="card-header">
-                            <div class="card-title text-center"><h2>Student Resister</h2></div>
-                        </div> 
-                        <div class="card-body">
-                        
-                            <form method="post" enctype="multipart/form-data" >
-                                <div  class="text-center">
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data" >
+                            <div  class="text-center">
                                     <label for="stuname"> Student Name </label> <br>
                                     <input type="text" placeholder="First Name" name="fname" required  style="width:50%;" class="text-center">
                                     <input type="text" placeholder="Last Name" name="lname" required  style="width:31%;" class="text-center"> 
@@ -96,21 +96,13 @@
                                 </div>
                             
                                 
-                            </form>
+                         </form>
 
-                        </div>
-                        <div class="card-footer text-center ">
-                            <h6>Already Have Account ? <a href="student_login.php" style="text-decoration:none;">Login</a></h6>
-                        </div>
-                    
-                    
                     </div>
                 </div>
+            </div>
             <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-title text-center"><h2>Student Resister</h2></div>
-                    </div> 
                     <div class="card-body">
                        
                         <form method="post" enctype="multipart/form-data" >
@@ -142,24 +134,18 @@
 
                                 <label for="cpass">Confirm Password </label> <br>
                                 <input type="password" style="width:82%;" required name="cpass" class="text-center"> <br><br>
-
-                                <input type="submit" value="Resister" style="width:82%;" name="sub" class="btn btn-primary" >
                             </div>
-                           
-                            
                         </form>
-
                     </div>
-                    <div class="card-footer text-center ">
-                        <h6>Already Have Account ? <a href="student_login.php" style="text-decoration:none;">Login</a></h6>
-                    </div>
-                   
-                
                 </div>
             </div>
-            
+        </div>
+        <div>
+            <input type="submit" value="Resister" style="width:82%;" name="sub" class="btn btn-primary" >
         </div>
     </div>
+
+
 
     <div class="text-center py-3 mt-5 bg-dark text-white">
         <h6>Copyright © 2021 Premier University IT. All rights reserved.</h6>
@@ -168,3 +154,31 @@
 
 </body>
 </html>
+
+
+
+            <div class="form-group">
+                <label for="name"> Name </label>
+                <input type="text" name='name' class='form-control'>
+            </div>
+
+            <div class="form-group">
+                <label for="email"> Email </label>
+                <input type="email" name='email' class='form-control'>
+            </div>
+
+            <div class="form-group">
+                <label for="birth_date"> Date of Birth </label>
+                <input type="date" name='birth_date' class='form-control'>
+            </div>
+
+            <div class="form-group">
+                <label for="salary"> Salary </label>
+                <input type="number" name='salary' class='form-control'>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class='btn btn-primary'> Save</button>
+            </div>
+
+        </form>
