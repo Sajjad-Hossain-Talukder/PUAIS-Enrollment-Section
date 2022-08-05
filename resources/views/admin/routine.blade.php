@@ -18,24 +18,30 @@
     <div class="row">
         <h2>All Courses</h2>
 
-        <form method='get' action="url('routine">
+
+        <form method='post' action="{{url('all-courses')}}">
+            {{ csrf_field() }}
             <div class="form-group">
                 <label for="sess">Select Session :  </label> 
-                <select name="sess" id="" class='form-control'>
+                <select name="sess" class='form-control'>
                     @foreach($session as $s)
                         {{$val = $s->s_name. " ".$s->s_year ; }}
                         <option value="{{$val}}">{{$val}}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="form-group">
-                <button type="submit" class='btn btn-primary'> Show</button>
-            </div>
-        </form>
+           
 
+            <div class="form-group">
+                <button type="submit" class='btn btn-primary'> Save</button>
+            </div>
+
+        </form>
 
     </div>
 </div>
+
+
     
 </body>
 </html>

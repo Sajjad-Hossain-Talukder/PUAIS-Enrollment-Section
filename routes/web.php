@@ -43,3 +43,4 @@ Route::get('teacher-register',function(){
 
 
 Route::get('class-routine', [ClassRoutine::class , 'rout']);
+Route::post('all-courses', [ClassRoutine::class , 'rout1']);
