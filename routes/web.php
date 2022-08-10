@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClassRoutine;
-
+use App\Http\Controllers\AdminActivity;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +40,10 @@ Route::get('student-register',function(){
 Route::get('teacher-register',function(){
     return view('admin.teacher_register');
 });
+
+
+Route::get('offer-course',[AdminActivity::class,'offercourses']);
+Route::post('course-list',[AdminActivity::class,'offercourses1']);
 
 
 Route::get('class-routine', [ClassRoutine::class , 'rout']);

@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB ;
 
-class ClassRoutine extends Controller
+class AdminActivity extends Controller
 {
-    public function rout(){
-       $session = DB::table('all_session')
-        ->get();
-        return view('admin.routine',['session' => $session]);
+    public function offercourses(){
+        $session = DB::table('all_session')
+                        ->get();
+        $course = DB::table('courses')
+                        ->get();
+        $teacher = DB::table('teacher')
+                        ->get();
+
+        return view('admin.offercourses',['session' => $session , 'course' => $course , 'teacher' => $teacher ]);
     }
-    public function rout1(Request $req){
+    public function offercourses1(Request $req){
         $sess = $req->sess ;
         $sem = $req->sem ; 
         
