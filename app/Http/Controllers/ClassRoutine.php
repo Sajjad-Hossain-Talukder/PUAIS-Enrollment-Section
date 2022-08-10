@@ -13,15 +13,24 @@ class ClassRoutine extends Controller
         return view('admin.routine',['session' => $session]);
     }
     public function rout1(Request $req){
-        $val = $req->sess ;
-        echo $val ;
+        $sess = $req->sess ;
+        $sem = $req->sem ; 
+        
         $rows = DB::table('offered_courses') 
                     -> join('courses','courses.course_code', '=', 'offered_courses.course_code')
                     -> join('teacher','teacher.T_Id', '=', 'offered_courses.T_Id')
-                    -> where('session_year',$val)
+                    -> where('session_year',$sess)
+                    -> where('sem_n',$sem)
                     -> get();
-       // dd ($rows);
-       
-        return view('admin.all_courses',['rows' => $rows]);
+
+        echo count($rows);
+
+        //dd($rows);
+        if( count($rows) == 0 ){
+            return redirect()->back()->with('null','No Course Found !!!');
+        }
+        else {
+            return redirect()->back()->with('rows',$rows);
+        }
     }
 }
