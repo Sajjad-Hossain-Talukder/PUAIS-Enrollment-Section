@@ -17,7 +17,7 @@
 
         <h3 class='text-center my-3'> Offer Courses </h3>
 
-        <form method='post' action="{{url('course-list')}}">
+        <form method='post' action="{{url('add-course')}}">
             {{ csrf_field() }}
 
             <div class="container">
@@ -81,6 +81,87 @@
 </div>
 
 
+
+<div class="container mt-3">
+    <div class="row">
+        <h3 class="text-center my-5 ">Course Details</h3>
+
+
+        <form method='post' action="{{url('courses-details')}}">
+            {{ csrf_field() }}
+            <div class="container">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label for="sess">Select Session :  </label> 
+                        <select name="sess" class='form-control'>
+                            @foreach($session as $s)
+                                {{$val = $s->s_name. " ".$s->s_year ; }}
+                                <option value="{{$val}}">{{$val}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    
+                    <div class="form-group col-6">
+                        <label for="sem">Select Semester :  </label> 
+                        <select name="sem" class='form-control'>
+                                <option value="1">First</option>
+                                <option value="2">Second</option>
+                                <option value="3">Third</option>
+                                <option value="4">Fourth</option>
+                                <option value="5">Fifth</option>
+                                <option value="6">Sixth</option>
+                                <option value="7">Seventh</option>
+                                <option value="8">Eighth</option>
+                        </select>
+                    </div>
+
+                    <div class="col-3"></div>
+                    <div class="form-group col-6 text-center mt-3">
+                        <button type="submit" class='btn btn-primary'> Show Courses </button>
+                    </div>
+                    <div class="col-3"></div>
+                    
+                </div>
+            </div>
+            
+
+    
+        </form>
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        @if(Session::has('null'))
+            <h4 class="text-center mt-5 ">{{ Session::get('null') }}</h4>
+        @endif
+
+        @if ( Session::has('rows'))
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Course Title</th>
+                        <th>Section</th>
+                        <th>Teacher ID</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(Session::get('rows') as $p)
+                    <tr>
+                        <td>{{$p->course_code}}</td>
+                        <td>{{$p->course_name}}</td>
+                        <td>{{$p->section}}</td>
+                        <td>{{$p->T_name}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+    </div>
+</div>
 
 
 

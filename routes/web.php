@@ -43,7 +43,7 @@ Route::get('teacher-register',function(){
 
 
 Route::get('offer-course',[AdminActivity::class,'offercourses']);
-Route::post('course-list',[AdminActivity::class,'offercourses1']);
+Route::post('add-course',[AdminActivity::class,'addcourse']);
 
 
 Route::get('class-routine', [ClassRoutine::class , 'rout']);

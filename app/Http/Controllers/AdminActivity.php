@@ -17,22 +17,20 @@ class AdminActivity extends Controller
 
         return view('admin.offercourses',['session' => $session , 'course' => $course , 'teacher' => $teacher ]);
     }
-    public function offercourses1(Request $req){
+    public function addcourse(Request $req){
         $sess = $req->sess ;
-        $sem = $req->sem ; 
-        
-        $rows = DB::table('offered_courses') 
-                    -> join('courses','courses.course_code', '=', 'offered_courses.course_code')
-                    -> join('teacher','teacher.T_Id', '=', 'offered_courses.T_Id')
-                    -> where('session_year',$sess)
-                    -> where('sem_n',$sem)
-                    -> get();
+        $course = $req->course ; 
+        $sec = $req->sec ;
+        $teacher = $req->teacher  ;
 
-        if( count($rows) == 0 ){
-            return redirect()->back()->with('null','No Course Found !!!');
-        }
-        else {
-            return redirect()->back()->with('rows',$rows);
-        }
+        
+        DB::table('offered_courses') ->insert([
+                'course_code' => $course  , 
+                'section' => $sec, 
+                'session_year' => $sess , 
+                'T_Id' => $teacher 
+        ]) ; 
+        return redirect()->back();
     }
+
 }
