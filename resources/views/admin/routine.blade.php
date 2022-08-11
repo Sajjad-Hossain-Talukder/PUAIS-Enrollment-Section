@@ -77,6 +77,7 @@
                         <th>Course Title</th>
                         <th>Section</th>
                         <th>Teacher ID</th>
+                        <th>Action</th>
 
                     </tr>
                 </thead>
@@ -87,6 +88,9 @@
                         <td>{{$p->course_name}}</td>
                         <td>{{$p->section}}</td>
                         <td>{{$p->T_name}}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{{url('edit-routine/'.$p->serial)}}"> Show </a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -44,6 +44,8 @@ Route::get('teacher-register',function(){
 
 Route::get('offer-course',[AdminActivity::class,'offercourses']);
 Route::post('add-course',[AdminActivity::class,'addcourse']);
+Route::get('edit-routine/{serial}',[AdminActivity::class,'show']);
+Route::post('store-routine/{serial}',[AdminActivity::class,'storeroutine']);
 
 
 Route::get('class-routine', [ClassRoutine::class , 'rout']);

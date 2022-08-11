@@ -32,5 +32,25 @@ class AdminActivity extends Controller
         ]) ; 
         return redirect()->back();
     }
+    public function show($serial){
+        //$person = DB::table('persons') -> where ('Id','=',$id) ->first() ; 
+
+        $det = DB::table('offered_courses')
+                -> join('courses','courses.course_code', '=', 'offered_courses.course_code')
+                -> join('teacher','teacher.T_Id', '=', 'offered_courses.T_Id')
+                -> where('serial',$serial)
+                -> first();
+        
+        return view('admin.edit_routine',['det'=>$det]);
+
+    }
+
+    public function storeroutine($serial){
+
+        dd($serial);
+        
+        return view('welcome');
+
+    }
 
 }

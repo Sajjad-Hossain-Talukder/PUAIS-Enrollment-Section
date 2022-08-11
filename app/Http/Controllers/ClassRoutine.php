@@ -30,4 +30,8 @@ class ClassRoutine extends Controller
             return redirect()->back()->with('rows',$rows);
         }
     }
+
+    public function storerout(){
+       // return view
+    }
 }
