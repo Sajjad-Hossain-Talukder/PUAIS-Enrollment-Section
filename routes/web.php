@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClassRoutine;
 use App\Http\Controllers\AdminActivity;
-
+use App\Http\Controllers\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,7 +45,7 @@ Route::get('teacher-register',function(){
 Route::get('offer-course',[AdminActivity::class,'offercourses']);
 Route::post('add-course',[AdminActivity::class,'addcourse']);
 Route::get('edit-routine/{serial}',[AdminActivity::class,'show']);
-Route::post('store-routine/{serial}',[AdminActivity::class,'storeroutine']);
+Route::post('store-routine/{serial}',[AdminActivity::class , 'storeroutine']);
 
 
 Route::get('class-routine', [ClassRoutine::class , 'rout']);

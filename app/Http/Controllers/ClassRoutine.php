@@ -31,7 +31,5 @@ class ClassRoutine extends Controller
         }
     }
 
-    public function storerout(){
-       // return view
-    }
+   
 }

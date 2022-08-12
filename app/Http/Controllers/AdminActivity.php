@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use DB ;
 
 class AdminActivity extends Controller
@@ -40,16 +42,47 @@ class AdminActivity extends Controller
                 -> join('teacher','teacher.T_Id', '=', 'offered_courses.T_Id')
                 -> where('serial',$serial)
                 -> first();
+
+        $row = DB::table('offered_courses') -> where('serial',$serial)->first() ;
+
+        $rout = DB::table('routine') -> where('course_code',$row->course_code)->get(); 
         
-        return view('admin.edit_routine',['det'=>$det]);
+        return view('admin.edit_routine',['det'=>$det , 'rout' => $rout]);
 
     }
 
-    public function storeroutine($serial){
+    public function storeroutine(Request $req , $serial){
 
-        dd($serial);
+        $st = $req->st ; 
+        $et = $req->et ; 
+        $day = $req->day ; 
+        $rn = $req->rn ; 
+
+        $startTime = Carbon::parse($req->st);
+        $finishTime = Carbon::parse($req->et);
+
+        $totalDuration = $finishTime->diffInMinutes($startTime) ;
+
+        $row = DB::table('offered_courses') -> where('serial',$serial)->first() ; 
+
+        $twelve_st = date("g", strtotime($st));
+        $twelve_et =  date("g:i a", strtotime($st));
+        DB::table('routine')->insert([
+            'course_code' => $row->course_code , 
+            'section' => $row->section ,
+            'session_year' => $row->session_year , 
+            'start_time' => $twelve_st , 
+            'end_time' => $et , 
+            'duration' => $totalDuration , 
+            'day' => $day , 
+            'room' => $rn ,
+        ]);
         
-        return view('welcome');
+
+       // dd($totalDuration);
+
+
+        return view('welcome' ,['st'=>$totalDuration]);
 
     }
 

@@ -34,7 +34,7 @@
                 <details>
                     <summary class="btn btn-primary "> Add Time and Day </summary>
                     <form method='post' action="{{url('store-routine/'.$det->serial)}}">
-
+                             {{ csrf_field() }}
                         <div class="form-group my-3 ">
                             <label for="st">Start Time  </label> 
                             <input type="time" name="st" class='form-control'>
@@ -67,7 +67,17 @@
                     </form>
                 </details>
             </div>
-            <div class="col-lg-6"></div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-6">
+                    <h3 class="text-center"> Class Schedule </h3>
+                    @foreach($rout as $r)
+                    <div class="card my-3">
+                        <h6>Day : {{ $r->day }} </h6>
+                        <h6>Start Time : {{  $r->start_time }} </h6>
+                    </div>
+                    @endforeach
+                   
+            </div>
         </div>
     </div>
 
