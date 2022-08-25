@@ -46,6 +46,10 @@ Route::get('offer-course',[AdminActivity::class,'offercourses']);
 Route::post('add-course',[AdminActivity::class,'addcourse']);
 Route::get('edit-routine/{serial}',[AdminActivity::class,'show']);
 Route::post('store-routine/{serial}',[AdminActivity::class , 'storeroutine']);
+Route::get('delete-routine/{serial}',[AdminActivity::class , 'deleteroutine']);
+Route::get('update-routine/{serial}',[AdminActivity::class , 'updateroutine']);
+Route::post('update-routine-entry/{serial}',[AdminActivity::class , 'updateroutineentry']);
+
 
 
 Route::get('class-routine', [ClassRoutine::class , 'rout']);

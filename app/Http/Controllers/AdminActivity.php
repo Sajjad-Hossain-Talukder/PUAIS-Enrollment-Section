@@ -46,8 +46,9 @@ class AdminActivity extends Controller
         $row = DB::table('offered_courses') -> where('serial',$serial)->first() ;
 
         $rout = DB::table('routine') -> where('course_code',$row->course_code)->get(); 
+        $leng = count($rout);
         
-        return view('admin.edit_routine',['det'=>$det , 'rout' => $rout]);
+        return view('admin.edit_routine',['det'=>$det , 'rout' => $rout , 'leng' => $leng ]);
 
     }
 
@@ -63,15 +64,16 @@ class AdminActivity extends Controller
 
         $totalDuration = $finishTime->diffInMinutes($startTime) ;
 
-        $row = DB::table('offered_courses') -> where('serial',$serial)->first() ; 
+        $row = DB::table('routine') -> where('serial',$serial)->first() ; 
 
         $twelve_st = date("g", strtotime($st));
         $twelve_et =  date("g:i a", strtotime($st));
+        
         DB::table('routine')->insert([
             'course_code' => $row->course_code , 
             'section' => $row->section ,
             'session_year' => $row->session_year , 
-            'start_time' => $twelve_st , 
+            'start_time' => $st , 
             'end_time' => $et , 
             'duration' => $totalDuration , 
             'day' => $day , 
@@ -82,8 +84,56 @@ class AdminActivity extends Controller
        // dd($totalDuration);
 
 
-        return view('welcome' ,['st'=>$totalDuration]);
+       return redirect('edit-routine/'.$serial);
 
+
+    }
+
+    public function updateroutineentry(Request $req , $serial){
+
+        $st = $req->st ; 
+        $et = $req->et ; 
+        $day = $req->day ; 
+        $rn = $req->rn ; 
+
+        $startTime = Carbon::parse($req->st);
+        $finishTime = Carbon::parse($req->et);
+
+        $totalDuration = $finishTime->diffInMinutes($startTime) ;
+
+        //$row = DB::table('routine') -> where('serial',$serial)->first() ; 
+
+        $twelve_st = date("g", strtotime($st));
+        $twelve_et =  date("g:i a", strtotime($st));
+        
+        DB::table('routine')->where('serial',$serial)->update([
+            'start_time' => $st , 
+            'end_time' => $et , 
+            'duration' => $totalDuration , 
+            'day' => $day , 
+            'room' => $rn ,
+        ]);
+        
+        $val = DB::table('routine')->where('serial',$serial)->first();
+        
+        $a = DB::table('offered_courses')->where('course_code',$val->course_code)->first();
+       
+
+
+       return redirect('edit-routine/'.$a->serial);
+
+
+    }
+
+    public function deleteroutine($serial){
+        DB::table('routine') ->where('serial',$serial)->delete(); 
+        return redirect()->back();
+    }
+
+    public function updateroutine($serial){
+        $row = DB::table('routine')->where('serial',$serial)->first();
+        
+        return view('admin.update_routine',['det'=>$row]);
     }
 
 }

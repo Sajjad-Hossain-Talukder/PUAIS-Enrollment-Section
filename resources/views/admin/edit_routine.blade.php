@@ -4,12 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <title>Edit Routine</title>
 </head>
 <body>
@@ -17,11 +12,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg"></div>
-            <div class="col-lg my-5 ">
-                <h5>Course Name : {{ $det->course_name }}</h5>
-                <h5>Course Code : {{ $det->course_code }} </h5>
-                <h5>Section : {{ $det->section  }} </h5>
-                <h5>Course Instructor : {{ $det->T_name }} </h5>
+            <div class="col-lg my-5 text-center">
+                <h5> {{ $det->course_name }}</h5>
+                <p> {{ $det->course_code }} <br>
+                 {{ $det->section  }} <br>
+                 {{ $det->T_name }} </p>
             </div>
             <div class="col-lg"></div>
         </div>
@@ -31,8 +26,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4">
-                <details>
-                    <summary class="btn btn-primary "> Add Time and Day </summary>
+
+                    <h6 class="text-center"> Add New Schedule </h6>
                     <form method='post' action="{{url('store-routine/'.$det->serial)}}">
                              {{ csrf_field() }}
                         <div class="form-group my-3 ">
@@ -61,26 +56,72 @@
                         </div>
 
                         <div class="form-group text-center">
-                            <button type="submit" class='btn btn-block btn-primary'> Add </button>
+                            <button type="submit" class='btn btn-primary btn-block'> Add </button>
                         </div>
 
                     </form>
-                </details>
+                
             </div>
-            <div class="col-lg-2"></div>
-            <div class="col-lg-6">
-                    <h3 class="text-center"> Class Schedule </h3>
-                    @foreach($rout as $r)
-                    <div class="card my-3">
-                        <h6>Day : {{ $r->day }} </h6>
-                        <h6>Start Time : {{  $r->start_time }} </h6>
+            <div class="col-lg-1"></div>
+            <div class="col-lg-7">
+                    <h6 class="text-center my-3"> Class Schedule </h6>
+                    @if($leng == 0 )
+                        <p class="p-3 mb-2 bg-danger text-white text-center" > No Schedule Added Yet !!! </p>
+                    @endif
+                    <div class="container">
+                        <div class="row">
+                            @foreach($rout as $r)
+                            <div class="col-lg-6">
+                                <div class="card p-1 my-3 text-center">
+                                    <div class="card-body">
+                                    
+                                        <p>{{ $r->day }}<br>
+                                        {{ date("g:i a", strtotime($r->start_time)) }} - {{ date("g:i a", strtotime($r->end_time)) }} <br>
+                                        Room : {{ $r->room }}</p>
+
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="{{url('update-routine/'.$r->serial)}}" class="btn btn-primary">Update</a>
+                                        
+                                        <a class="btn btn-danger" data-toggle="modal" data-target="#myModal{{$r->serial}}"> Delete</a>
+                                        <!-- The Modal -->
+                                        <div class="modal fade" id="myModal{{$r->serial}}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Delete Confirmation</h5>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete <b> {{ $r->day }} ( {{ date("g:i a", strtotime($r->start_time)) }} - {{ date("g:i a", strtotime($r->end_time)) }} )</b> ? 
+                                                    </div>
+
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                                                        <a class="btn btn-danger" href="{{url('delete-routine/'.$r->serial)}}"> YES</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>  
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
-                    @endforeach
-                   
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     
 </body>
 </html>
