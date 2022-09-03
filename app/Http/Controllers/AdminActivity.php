@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use App\Models\all_user ;
+use Image;
 use Carbon\Carbon;
 use DB ;
 
@@ -129,11 +131,52 @@ class AdminActivity extends Controller
         DB::table('routine') ->where('serial',$serial)->delete(); 
         return redirect()->back();
     }
-
+    
     public function updateroutine($serial){
         $row = DB::table('routine')->where('serial',$serial)->first();
+
+        $val = DB::table('offered_courses')
+                -> join('courses','courses.course_code', '=', 'offered_courses.course_code')
+                -> join('teacher','teacher.T_Id', '=', 'offered_courses.T_Id')
+                -> where('offered_courses.course_code','=',$row->course_code )
+                -> first();
         
-        return view('admin.update_routine',['det'=>$row]);
+        return view('admin.update_routine',['det'=>$row , 'val'=>$val ]);
+    }
+
+
+    public function dashboard(){
+        return view('admin.pages.dashboard');
+    }
+
+    public function adminassign(Request $req ){
+        $nm = $req->nm ;
+        $em = $req->em ; 
+        $pass = $req->pass;
+        $role ="admin" ;
+        $is_appr = '1' ; 
+        $originalImage= $req->file('image');
+        $thumbnailImage = Image::make($originalImage);
+        $thumbnailPath = public_path().'/thumbnail/';
+        $originalPath = public_path().'/images/';
+        $thumbnailImage->save($originalPath.time().$originalImage->getClientOriginalName());
+        $thumbnailImage->resize(150,150);
+        $thumbnailImage->save($thumbnailPath.time().$originalImage->getClientOriginalName());
+
+        $obj = new all_user(); 
+
+        $obj->name = $nm  ; 
+        $obj->email = $em ; 
+        $obj->password = md5($pass) ; 
+        $obj->role = $role  ; 
+        $obj->is_approved = $is_appr ; 
+        $obj->image = time().$originalImage->getClientOriginalName();
+
+
+       if ( $obj->save()) {
+       
+            echo "successful";
+       }
     }
 
 }

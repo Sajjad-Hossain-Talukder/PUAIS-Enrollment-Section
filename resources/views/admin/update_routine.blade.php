@@ -9,25 +9,40 @@
 </head>
 <body>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg"></div>
+            <div class="col-lg my-3 text-center">
+                <h5> {{ $val->course_name }}</h5>
+                <p> {{ $val->course_code }} <br>
+                 {{ $val->section  }} <br>
+                 {{ $val->T_name }} </p>
+            </div>
+            <div class="col-lg"></div>
+        </div>
+    </div>
+
+
    
     <div class="container">
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
 
-                    <h6 class="text-center"> Update Schedule </h6>
+                    <h5 class="text-center"> <u>Update Schedule </u></h5>
                     <form method='post' action="{{url('update-routine-entry/'.$det->serial)}}">
                              {{ csrf_field() }}
                         <div class="form-group my-3 ">
                             <label for="st">Start Time  : {{ date("g:i A", strtotime($det->start_time)) }} <br> Enter New Start Time : </label> 
-                            <input type="time" name="st" class='form-control' >
+                            <input type="time" name="st" class='form-control' required >
                         </div>
                         <div class="form-group my-3 ">
                             <label for="et">End Time  : {{ date("g:i A", strtotime($det->end_time)) }} <br> Enter New End Time :</label> 
-                            <input type="time" name="et" class='form-control' placeholder="{{ $det->end_time }}">
+                            <input type="time" name="et" class='form-control' placeholder="{{ $det->end_time }}"  required >
                         </div>
                         <div class="form-group my-3 ">
                             <label for="day">Day : {{ $det->day }} <br> Select Day :  </label> 
-                            <select name="day" class='form-control' placeholder="{{ $det->day }}" >
+                            <select name="day" class='form-control' placeholder="{{ $det->day }}" required >
                                 <option value="Saturday">Saturday</option>
                                 <option value="Sunday">Sunday</option>
                                 <option value="Monday">Monday</option>
@@ -39,7 +54,7 @@
                         </div>
                         <div class="form-group my-3 ">
                             <label for="rn">Enter Room Number   </label> 
-                            <input type="text" name="rn" class='form-control' placeholder="{{ $det->room}}">
+                            <input type="text" name="rn" class='form-control' placeholder="{{ $det->room}}"  required >
                         </div>
 
                         <div class="form-group text-center">
@@ -49,6 +64,7 @@
                     </form>
                 
             </div>
+            <div class="col-lg-3"></div>
         </div>
     </div>
 
