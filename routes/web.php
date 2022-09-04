@@ -65,11 +65,15 @@ Route::get('create', [ImageController::class , 'create']);
 Route::post('create', [ImageController::class , 'store']);
 
 
-Route::get('dashboard',[AdminActivity::class,'dashboard'])->middleware('adminLogin');
-
-
 Route::get('admin-assign',function(){return view('admin_assign');});
 Route::post('admin-registration',[AdminActivity::class,'adminassign']);
 
+
+
 Route::get('login-admin',function(){return view('admin.pages.login');});
 Route::post('check-login',[LoginActivity::class,'checklogin']);
+Route::get('logout',[LoginActivity::class,'logout']);
+
+
+Route::get('profile',[AdminActivity::class,'profile'])->middleware('adminLogin');
+Route::get('dashboard',[AdminActivity::class,'dashboard'])->middleware('adminLogin');

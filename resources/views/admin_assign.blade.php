@@ -9,12 +9,18 @@
 </head>
 <body>
 
+<h6 class="text-center"> Add Admin</h6>
+
+@if ( Session::has('success'))
+    <div class="alert alert-success">
+        <strong> {{  Session::get('success') }}</strong>
+    </div>
+@endif
+
     <div class="container">
         <div class="row">
-            <div class="col-lg-3"></div>
+            <div class="col-lg-2"></div>
             <div class="col-lg-4">
-
-                    <h6 class="text-center"> Add Admin</h6>
                     <form method='post' enctype="multipart/form-data" action="{{url('admin-registration')}}">
                              {{ csrf_field() }}
                         <div class="form-group my-3 ">
@@ -22,12 +28,34 @@
                             <input type="text" name="nm" class='form-control'>
                         </div>
                         <div class="form-group my-3 ">
+                            <label for="desi">Designation   </label> 
+                            <input type="text" name="desi" class='form-control'>
+                        </div>
+                        <div class="form-group my-3 ">
                             <label for="em">Email   </label> 
                             <input type="text" name="em" class='form-control'>
                         </div>
+
+                        <div class="form-group my-3 ">
+                            <label for="cont">Contact  </label> 
+                            <input type="text" name="cont" class='form-control'>
+                        </div>
+            </div>
+            <div class="col-lg-4">
                         <div class="form-group my-3 ">
                             <label for="pass">Password   </label> 
                             <input type="password" name="pass" class='form-control'>
+                        </div>
+                        
+                        @if ( Session::has('err_msg'))
+                                <div class="alert alert-danger">
+                                    <strong> {{  Session::get('err_msg') }}</strong>
+                                </div>
+                        @endif
+
+                        <div class="form-group my-3 ">
+                            <label for="cpass">Confirm Password   </label> 
+                            <input type="password" name="cpass" class='form-control'>
                         </div>
                         <div class="form-group my-3 ">
                             <label for="image">Image   </label> 

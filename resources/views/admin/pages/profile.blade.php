@@ -146,167 +146,35 @@
 
 @section('content')
     
-<div class="container mt-5">
+<div class="container m-5">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+
             <div class="card">
                 <div class="card-header text-center">
-                    <h4>Academic Info</h4>
+                    <h4>Personal Info</h4>
                 </div>
-                <div class="card-body text-center">
-                <div class="row">
-                <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="student_resister.php" class="stretched-link text-dark"> <h4>Student Resister</h4> </a>
-                            </div>
-                        </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img src="thumbnail/{{$row->image}}" class="img-fluid rounded-circle"> <hr><br>
+                        <h3>{{$row->name}}</h3>
+                        <h6>{{$row->designation}}</h6>
+                        <h6>{{$row->email}}</h6>
+                        <h6>+880-{{$row->contact}}</h6>
                     </div>
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="teacher_resister.php" class="stretched-link text-dark"> <h4>Teacher Resister</h4> </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="admin_advisor_assign.php" class="stretched-link text-dark"> <h4>Advisor Assign</h4> </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="admin_all_session.php" class="stretched-link text-dark"><h4>Adding Session</h4></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">   
-                            <div class="card-body bg-light">
-                                <a href="admin_insert_courses.php" class="stretched-link text-dark" ><h4>Adding Courses</h4></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="admin_offer_courses.php" class="stretched-link text-dark"><h4>Offer Courses</h4></a>  
-                            </div>
-                        </div>           
-                    </div>
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="admin_all_courses.php" class="stretched-link text-dark"><h4>All Courses</h4></a>  
-                            </div>
-                        </div>  
-                    </div>
-
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="#" class="stretched-link text-dark"> <h4>Student Details</h4> </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="#" class="stretched-link text-dark"> <h4>Teacher Details</h4> </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="#" class="stretched-link text-dark"> <h4> Results</h4> </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="#" class="stretched-link text-dark"> <h4> Payment </h4> </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="#" class="stretched-link text-dark"> <h4> Exam Schedule</h4> </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="#" class="stretched-link text-dark"> <h4>Class Routine</h4> </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="#" class="stretched-link text-dark"> <h4> Notices</h4> </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        
-                        <div class="card my-3" >
-                            <img src="uploaded_images/course_image.png" class="card-img-top">
-                            <div class="card-body bg-light">
-                                <a href="admin_change_password.php" class="stretched-link text-dark"> <h4> Change Password</h4> </a>
-                            </div>
-                        </div>
-                    </div>
-                   
-
                 </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-warning" style="width:100%;">Account Setting </a>
                 </div>
             </div>
-            
+
+
         </div>
-        
+        <div class="col-lg-3"></div>
     </div>
 </div>
+
 
 @stop
 

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\all_user ;
+use App\Models\Admin_info;
 use Image;
+use Session;
 use Carbon\Carbon;
 use DB ;
 
@@ -150,11 +152,11 @@ class AdminActivity extends Controller
     }
 
     public function adminassign(Request $req ){
-        $nm = $req->nm ;
-        $em = $req->em ; 
-        $pass = $req->pass;
-        $role ="admin" ;
-        $is_appr = '1' ; 
+
+        if ( $req->pass != $req->cpass  ) {
+            return redirect()->back()->with('err_msg','Password Mismatch!!!');
+        }
+   
         $originalImage= $req->file('image');
         $thumbnailImage = Image::make($originalImage);
         $thumbnailPath = public_path().'/thumbnail/';
@@ -163,20 +165,38 @@ class AdminActivity extends Controller
         $thumbnailImage->resize(150,150);
         $thumbnailImage->save($thumbnailPath.time().$originalImage->getClientOriginalName());
 
-        $obj = new all_user(); 
+        $obj1 = new all_user(); 
 
-        $obj->name = $nm  ; 
-        $obj->email = $em ; 
-        $obj->password = md5($pass) ; 
-        $obj->role = $role  ; 
-        $obj->is_approved = $is_appr ; 
-        $obj->image = time().$originalImage->getClientOriginalName();
+        $obj1->name = $req->nm ;  ; 
+        $obj1->email = $req->em ; 
+        $obj1->password = md5($req->pass) ; 
+        $obj1->role = "admin"  ; 
+        $obj1->is_approved = '1' ; 
+        $obj1->image = time().$originalImage->getClientOriginalName();
 
+        $obj2 = new Admin_info(); 
 
-       if ( $obj->save()) {
+        $obj2->name = $req->nm ; 
+        $obj2->designation = $req->desi;
+        $obj2->contact = $req->cont ; 
+        $obj2->email = $req->em ; 
+        $obj2->password = md5($req->pass) ; 
+        $obj2->image = time().$originalImage->getClientOriginalName();
+
+       if ( $obj1->save() and $obj2->save() ) {
        
-            echo "successful";
+                return redirect()->back()->with('success','Succesfully Added!!!');
        }
+
+    }
+
+    public function profile(){
+        $row = DB::table('admin_infos')
+                ->where('email',Session::get('useremail'))
+                ->first(); 
+            
+        return view('admin.pages.profile',['row'=>$row]);
+
     }
 
 }

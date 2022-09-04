@@ -1,8 +1,8 @@
 <ul class="sidenav-inner py-1">
 
 <!-- Dashboards -->
-<li class="sidenav-item active">
-    <a href="index.html" class="sidenav-link">
+<li class="sidenav-item ">
+    <a href="{{url('dashboard')}}" class="sidenav-link">
         <i class="sidenav-icon feather icon-home"></i>
         <div>Dashboard</div>
     </a>

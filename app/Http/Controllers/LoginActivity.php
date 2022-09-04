@@ -34,9 +34,10 @@ class LoginActivity extends Controller
         else{
             return redirect()->back()->with('fail','Failed to login!!');
         }
-        
-        
-        
-
     }
+    public function logout(){
+        Session::forget('userrole');
+        return redirect('login-admin');
+    }
+
 }
