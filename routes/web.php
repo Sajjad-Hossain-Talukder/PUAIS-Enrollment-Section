@@ -65,7 +65,7 @@ Route::get('create', [ImageController::class , 'create']);
 Route::post('create', [ImageController::class , 'store']);
 
 
-Route::get('dashboard',[AdminActivity::class,'dashboard']);
+Route::get('dashboard',[AdminActivity::class,'dashboard'])->middleware('adminLogin');
 
 
 Route::get('admin-assign',function(){return view('admin_assign');});

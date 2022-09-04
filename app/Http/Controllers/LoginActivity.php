@@ -26,10 +26,10 @@ class LoginActivity extends Controller
                 Session::put('username' , $row->name );
                 Session::put('useremail' , $row->email ); 
                 Session::put('userrole' , $row->role ); 
-                
-                return view('admin.pages.dashboard',['admin'=>$row]);
-                
-        
+                Session::put('image' , $row->image); 
+
+                return redirect('dashboard');
+            
         }
         else{
             return redirect()->back()->with('fail','Failed to login!!');
