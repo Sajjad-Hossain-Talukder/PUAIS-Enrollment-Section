@@ -23,3 +23,14 @@
     <!-- Libs -->
     <link rel="stylesheet" href="assets/libs/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="assets/libs/flot/flot.css">
+    <style>
+        .dv{
+            border : 1px solid green;
+            border-radius : 10px;
+        }
+        .dv:hover{
+            border : 1px solid black;
+            border-radius : 10px;
+            box-shadow : 1px 1px 5px gray;
+        }
+        </style>

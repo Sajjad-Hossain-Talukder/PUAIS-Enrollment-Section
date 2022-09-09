@@ -17,5 +17,5 @@
     <script src="assets/libs/chart-am4/animated.js"></script>
 
     <!-- Demo -->
-    <script src="assets/js/demo.js"></script><script src="assets/js/analytics.js"></script>
+    <script src="assets/js/analytics.js"></script>
     <script src="assets/js/pages/dashboards_index.js"></script>

@@ -1,5 +1,9 @@
 @extends('admin.layouts.dash')
 
+@section('title')
+    <title>Dashboard</title>
+@stop
+
 @section('intro')
                         <div class="navbar-nav align-items-lg-center ml-auto">
                             <div class="demo-navbar-notifications nav-item dropdown mr-lg-3">
@@ -143,6 +147,76 @@
 @stop
 
 
+@section('sidebar')
+    <ul class="sidenav-inner py-1">
+
+    <!-- Dashboards -->
+    <li class="sidenav-item active">
+        <a href="{{url('dashboard')}}" class="sidenav-link">
+            <i class="sidenav-icon feather icon-home"></i>
+            <div>Dashboard</div>
+        </a>
+    </li>
+
+    <!-- Layouts -->
+    <li class="sidenav-item">
+        <a href="{{url('registration')}}" class="sidenav-link">
+            <i class="sidenav-icon feather icon-file-text"></i>
+            <div>Registration</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
+        <a href="{{url('course-detail')}}" class="sidenav-link">
+            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
+            <div>Course Details</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
+        <a href="{{url('session-section')}}" class="sidenav-link">
+            <i class="sidenav-icon feather icon-list"></i>
+            <div>Sessions & Sections</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
+        <a href="{{url('class-routine')}}" class="sidenav-link">
+            <i class="sidenav-icon fas fa-calendar-alt"></i>
+            <div>Class Routine</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
+        <a href="{{url('advisorship')}}" class="sidenav-link">
+            <i class="sidenav-icon fas fa-archive"></i>
+            <div>Advisorship</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
+        <a href="{{url('payments')}}" class="sidenav-link">
+            <i class="sidenav-icon feather icon-credit-card"></i>
+            <div>Payments</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
+        <a href="{{url('results')}}" class="sidenav-link">
+            <i class="sidenav-icon 	fas fa-server"></i>
+            <div>Results</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
+        <a href="{{url('exam-schedule')}}" class="sidenav-link">
+            <i class="sidenav-icon fas fa-layer-group"></i>
+            <div>Exam Scheduleing</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
+        <a href="{{url('notice-event')}}" class="sidenav-link">
+            <i class="sidenav-icon 	fas fa-mail-bulk"></i>
+            <div>Notices & Events</div>
+        </a>
+    </li>
+    </ul>
+@stop
+
+
 
 @section('content')
     
@@ -160,7 +234,7 @@
                         <div class="card my-3" >
                             <img src="uploaded_images/course_image.png" class="card-img-top">
                             <div class="card-body bg-light">
-                                <a href="student_resister.php" class="stretched-link text-dark"> <h4>Student Resister</h4> </a>
+                                <a href="{{url('student-register')}}" class="stretched-link text-dark"> <h4>Student Resister</h4> </a>
                             </div>
                         </div>
                     </div>
@@ -169,7 +243,7 @@
                         <div class="card my-3" >
                             <img src="uploaded_images/course_image.png" class="card-img-top">
                             <div class="card-body bg-light">
-                                <a href="teacher_resister.php" class="stretched-link text-dark"> <h4>Teacher Resister</h4> </a>
+                                <a href="{{url('teacher-register')}}" class="stretched-link text-dark"> <h4>Teacher Resister</h4> </a>
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\all_user ;
 use App\Models\Admin_info;
+use App\Models\Student_info;
+use App\Models\Teacher_info;
+use App\Models\Advisorship_info;
 use Image;
 use Session;
 use Carbon\Carbon;
@@ -194,9 +197,149 @@ class AdminActivity extends Controller
         $row = DB::table('admin_infos')
                 ->where('email',Session::get('useremail'))
                 ->first(); 
-            
         return view('admin.pages.profile',['row'=>$row]);
+    }
+
+    public function registration(){
+        return view('admin.pages.registration');
+    }
+
+    public function student_register(){
+        return view('admin.pages.student_register');
+    }
+
+    public function store_student(Request $req){
+       
+        if ( $req->pass != $req->cpass  ) {
+            return redirect()->back()->with('fail','Password Mismatch!!!');
+        }
+   
+        $originalImage= $req->file('image');
+        $thumbnailImage = Image::make($originalImage);
+        $thumbnailPath = public_path().'/thumbnail/';
+        $originalPath = public_path().'/images/';
+        $thumbnailImage->save($originalPath.time().$originalImage->getClientOriginalName());
+        $thumbnailImage->resize(150,150);
+        $thumbnailImage->save($thumbnailPath.time().$originalImage->getClientOriginalName());
+
+        $obj1 = new Student_info();
+
+        $obj1->name = $req->fname .' '.$req->lname;
+        $obj1->father_name= $req->faname ; 
+        $obj1->mother_name= $req->moname ; 
+        $obj1->date_of_birth= $req->dob;
+        $obj1->gender= $req->gend ; 
+        $obj1->department= $req->dept; 
+        $obj1->student_id= $req->sid ; 
+        $obj1->batch= $req->batch ; 
+        $obj1->email= $req->email; 
+        $obj1->mobile= $req->mobile; 
+        $obj1->address= $req->address ; 
+        $obj1->image= time().$originalImage->getClientOriginalName();
+        $obj1->password= md5($req->pass);
+
+       $obj2 = new all_user(); 
+
+        $obj2->name = $req->fname .' '.$req->lname;
+        $obj2->email = $req->email ; 
+        $obj2->password = md5($req->pass) ; 
+        $obj2->role = "student"  ; 
+        $obj2->is_approved = '1' ; 
+        $obj2->image = time().$originalImage->getClientOriginalName();
+
+        if ( $obj1->save() and $obj2->save() ) {
+            return redirect()->back()->with('success','Succesfully Added!!!');
+        }
+
+
 
     }
+
+    public function teacher_register(){
+        return view('admin.pages.teacher_register');
+    }
+
+    public function store_teacher(Request $req){
+       
+        if ( $req->pass != $req->cpass  ) {
+            return redirect()->back()->with('fail','Password Mismatch!!!');
+        }
+   
+        $originalImage= $req->file('image');
+        $thumbnailImage = Image::make($originalImage);
+        $thumbnailPath = public_path().'/thumbnail/';
+        $originalPath = public_path().'/images/';
+        $thumbnailImage->save($originalPath.time().$originalImage->getClientOriginalName());
+        $thumbnailImage->resize(150,150);
+        $thumbnailImage->save($thumbnailPath.time().$originalImage->getClientOriginalName());
+
+        $obj1 = new Teacher_info();
+
+        $obj1->name = $req->fname .' '.$req->lname;
+        $obj1->father_name= $req->faname ; 
+        $obj1->mother_name= $req->moname ; 
+        $obj1->date_of_birth= $req->dob;
+        $obj1->gender= $req->gend ; 
+        $obj1->department= $req->dept; 
+        $obj1->teacher_id= $req->tid ; 
+        $obj1->designation= $req->desi ; 
+        $obj1->email= $req->email; 
+        $obj1->mobile= $req->mobile; 
+        $obj1->address= $req->address ; 
+        $obj1->image= time().$originalImage->getClientOriginalName();
+        $obj1->password= md5($req->pass);
+
+       $obj2 = new all_user(); 
+
+        $obj2->name = $req->fname .' '.$req->lname;
+        $obj2->email = $req->email ; 
+        $obj2->password = md5($req->pass) ; 
+        $obj2->role = "teacher"  ; 
+        $obj2->is_approved = '1' ; 
+        $obj2->image = time().$originalImage->getClientOriginalName();
+
+        if ( $obj1->save() and $obj2->save() ) {
+            return redirect()->back()->with('success','Succesfully Added!!!');
+        }
+
+
+
+    }
+
+    public function advisorship(){
+        return view('admin.pages.advisor_assign');
+    }
+    public function assign_advisor(){
+        
+        $stu = DB::table('student_infos')->whereNotIn('id', function($q){
+                    $q->select('student_sl')->from('advisorship_infos');})->get();
+       
+        $tec = DB::table('teacher_infos')->get();
+
+        echo count($stu);
+
+        Session::forget('yes');
+        Session::forget('no');
+
+        if(count($stu) ) Session::put('yes',"yes" );
+        else Session::put('no',"no" );
+
+
+
+        return view('admin.pages.advisor_assign_two',['stu'=>$stu , 'tec'=>$tec ]);
+       
+    }
+
+    
+    public function store_advisor(Request $req){
+        $obj = new Advisorship_info() ; 
+        $obj->student_sl = $req->stu ; 
+        $obj->teacher_sl = $req->tec ; 
+        if ( $obj->save() ){
+            return redirect()->back()->with('success','Succesfully Assigned!!!');
+        }
+    }
+
+
 
 }

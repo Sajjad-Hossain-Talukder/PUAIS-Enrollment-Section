@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>Profile</title>
+    <title>Registration</title>
 @stop
 
 @section('intro')
@@ -146,11 +146,12 @@
                         </div>
 @stop
 
+
 @section('sidebar')
     <ul class="sidenav-inner py-1">
 
     <!-- Dashboards -->
-    <li class="sidenav-item active">
+    <li class="sidenav-item">
         <a href="{{url('dashboard')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-home"></i>
             <div>Dashboard</div>
@@ -158,7 +159,7 @@
     </li>
 
     <!-- Layouts -->
-    <li class="sidenav-item">
+    <li class="sidenav-item active">
         <a href="{{url('registration')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-file-text"></i>
             <div>Registration</div>
@@ -216,36 +217,49 @@
 @stop
 
 
+
 @section('content')
     
-<div class="container m-5">
+<div class="container mt-5">
     <div class="row">
-        <div class="col-lg-3"></div>
-        <div class="col-lg-6">
-
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header text-center">
-                    <h4>Personal Info</h4>
+                    <h3>Registration</h3>
                 </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <img src="thumbnail/{{$row->image}}" class="img-fluid rounded-circle"> <hr><br>
-                        <h3>{{$row->name}}</h3>
-                        <h6>{{$row->designation}}</h6>
-                        <h6>{{$row->email}}</h6>
-                        <h6>+880-{{$row->contact}}</h6>
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-3 dv">
+                                
+                                <div class="card my-3" >
+                                    <div class="card-body">
+                                        <a href="{{url('student-register')}}" class="stretched-link text-dark"> <h4>Student Register</h4> </a>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-3 dv">
+                                
+                                <div class="card my-3" >
+                                    <div class="card-body">
+                                        <a href="{{url('teacher-register')}}" class="stretched-link text-dark"> <h4>Teacher Register</h4> </a>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="col-lg-2"></div>
+                        
+                    
+
                     </div>
                 </div>
-                <div class="card-footer">
-                    <a href="#" class="btn btn-warning" style="width:100%;">Account Setting </a>
-                </div>
             </div>
-
-
+            
         </div>
-        <div class="col-lg-3"></div>
+        
     </div>
 </div>
+
 
 
 @stop

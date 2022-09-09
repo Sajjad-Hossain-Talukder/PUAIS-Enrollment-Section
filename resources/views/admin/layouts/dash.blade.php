@@ -4,7 +4,8 @@
 
 <head>
 
-    <title>Dashboard</title>
+    @yield('title')
+    
     @include('admin.includes.head')
     
 
@@ -27,7 +28,7 @@
                 <div class="sidenav-divider mt-0"></div>
 
                 <!-- Links -->
-                @include('admin.includes.sidebar')
+                @yield('sidebar')
             
             </div>
             <!-- [ Layout sidenav ] End -->

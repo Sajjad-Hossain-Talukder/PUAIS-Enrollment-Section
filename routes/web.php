@@ -36,9 +36,7 @@ Route::get('admin-dashboard',function(){
     return view('admin.dashboard');
 });
 
-Route::get('student-register',function(){
-    return view('admin.student_register');
-});
+
 Route::get('teacher-register',function(){
     return view('admin.teacher_register');
 });
@@ -77,3 +75,12 @@ Route::get('logout',[LoginActivity::class,'logout']);
 
 Route::get('profile',[AdminActivity::class,'profile'])->middleware('adminLogin');
 Route::get('dashboard',[AdminActivity::class,'dashboard'])->middleware('adminLogin');
+Route::get('registration',[AdminActivity::class,'registration'])->middleware('adminLogin');
+Route::get('student-register',[AdminActivity::class,'student_register'])->middleware('adminLogin');
+Route::post('store-student',[AdminActivity::class,'store_student'])->middleware('adminLogin');
+Route::get('teacher-register',[AdminActivity::class,'teacher_register'])->middleware('adminLogin');
+Route::post('store-teacher',[AdminActivity::class,'store_teacher'])->middleware('adminLogin');
+Route::get('advisorship',[AdminActivity::class,'advisorship'])->middleware('adminLogin');
+Route::get('assign-advisor',[AdminActivity::class,'assign_advisor'])->middleware('adminLogin');
+Route::post('store-advisor',[AdminActivity::class,'store_advisor'])->middleware('adminLogin');
+
