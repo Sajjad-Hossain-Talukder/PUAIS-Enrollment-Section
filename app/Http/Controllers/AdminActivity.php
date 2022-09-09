@@ -9,6 +9,7 @@ use App\Models\Admin_info;
 use App\Models\Student_info;
 use App\Models\Teacher_info;
 use App\Models\Session_info;
+use App\Models\Course_info;
 use App\Models\Advisorship_info;
 use Image;
 use Session;
@@ -359,6 +360,44 @@ class AdminActivity extends Controller
     public function course_detail(){
         return view('admin.pages.courses');
     }
+    public function add_new_course(){
+        $row = DB::table('course_infos')->get();
+        return view('admin.pages.new_course',['row'=>$row]);
+    }
+
+    public function store_course(Request $req){
+        if($req->sm == '1') $sem = 'First' ; 
+        if($req->sm == '2') $sem = 'Second' ;
+        if($req->sm == '3') $sem = 'Third' ;
+        if($req->sm == '4') $sem = 'Fourth' ;
+        if($req->sm == '5') $sem = 'Fifth' ;
+        if($req->sm == '6') $sem = 'Sixth' ;
+        if($req->sm == '7') $sem = 'Seventh' ;
+        if($req->sm == '8') $sem = 'Eighth' ;
+
+        $obj = new Course_info() ; 
+        $obj->nsemester = $req->sm;
+        $obj->semester = $sem;
+        $obj->course_code = $req->cc;
+        $obj->course_title = $req->ct ;
+        $obj->prerequisite = $req->pcc;
+        $obj->credit = $req->credit;
+
+        if( $obj->save() ) {
+            return redirect()->back()->with('success','Successfully Added!!');
+        }
+
+
+
+    }
+
+    public function all_course(){
+        $row = DB::table('course_infos as a')->select('b.id','b.nsemester','b.semester','b.course_code','a.course_title as pt','b.prerequisite','b.credit','b.course_title as ct')
+                ->join('course_infos as b','a.id','b.prerequisite')
+                ->get();
+        return view('admin.pages.all_course',['row'=>$row]);
+    }
+    
 
 
 

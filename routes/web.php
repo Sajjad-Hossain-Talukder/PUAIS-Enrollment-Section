@@ -91,3 +91,6 @@ Route::get('section',[AdminActivity::class,'section'])->middleware('adminLogin')
 // store section left 
 
 Route::get('course-detail',[AdminActivity::class,'course_detail'])->middleware('adminLogin');
+Route::get('add-new-course',[AdminActivity::class,'add_new_course'])->middleware('adminLogin');
+Route::post('store-course',[AdminActivity::class,'store_course'])->middleware('adminLogin');
+Route::get('all-course',[AdminActivity::class,'all_course'])->middleware('adminLogin');

@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>Course Details</title>
+    <title>Add New Course</title>
 @stop
 
 @section('intro')
@@ -225,47 +225,79 @@
 
 
 @section('content')
+                            @if ( Session::has('fail'))
+                                <div class="alert alert-danger">
+                                    <strong> {{  Session::get('fail') }}</strong>
+                                </div>
+                            @endif
+
     
   <div class="card m-4 border-rounded">
     <div class="card-header text-center">
-        <h4>Course Details</h4>
+        <h4>Add New Course </h4>
     </div>
     
-    <div class="card-body text-center">
+    <div class="card-body">
+        @if ( Session::has('success'))
+            <div class="alert alert-success text-center">
+                <strong> {{  Session::get('success') }}</strong>
+            </div>
+        @endif
+
+        <form method='post' action="{{url('store-course')}}">
+                {{ csrf_field() }}
         <div class="container">
             <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group my-3 ">
+                            <label for="sm">Semester</label> <br>
+                            <select name="sm" class='form-control'>
+                                <option value="1"> First</option>
+                                <option value="2"> Second </option>
+                                <option value="3"> Third </option>
+                                <option value="4"> Fourth </option>
+                                <option value="5"> Fifth </option>
+                                <option value="6"> Sixth </option>
+                                <option value="7"> Seventh </option>
+                                <option value="8"> Eighth </option>
+                            </select>
+                            
+                    </div>
+                    <div class="form-group my-3 ">
+                            <label for="pcc">Prerequisite Course Title</label> 
+                            <select name="pcc" class='form-control'>
+                            @foreach($row as $r )
+                                <option value="{{$r->id}}">{{ $r->course_title }}</option>
+                            @endforeach
+                            </select>
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group my-3 ">
+                            <label for="cc">Course Code</label> 
+                            <input type="text" name="cc" class='form-control'>
+                    </div>
+                    <div class="form-group my-3 ">
+                        <label for="credit">Credits</label> 
+                        <input type="number" step="0.1" name="credit" class='form-control'>
+                    </div>    
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group my-3 ">
+                            <label for="ct">Course Title</label> 
+                            <input type="text" name="ct" class='form-control'>
+                    </div>               
+                    <div class="form-group text-center mt-5">
+                        <button type="submit" class='btn btn-primary btn-block'> Add Course </button>
+                    </div>
+
+                </div>
+               
                 
-                <div class="col-lg-4 dv m-3">          
-                    <div class="card " >
-                        <div class="card-body">
-                            <a href="{{url('all-course')}}" class="stretched-link text-dark"> <h5>All Courses</h5> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7 dv m-3">    
-                    <div class="card" >
-                        <div class="card-body">
-                            <a href="{{url('add-new-course')}}" class="stretched-link text-dark"> <h5>Add New Courses</h5> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7 dv m-3">          
-                    <div class="card " >
-                        <div class="card-body">
-                            <a href="{{url('offer-course')}}" class="stretched-link text-dark"> <h5> Offer Courses </h5> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 dv m-3">    
-                    <div class="card" >
-                        <div class="card-body">
-                            <a href="{{url('offer-courses')}}" class="stretched-link text-dark"> <h5> Hello </h5> </a>
-                        </div>
-                    </div>
-                </div>
-                       
             </div>
         </div>
+        </form>
     </div>
 
    
