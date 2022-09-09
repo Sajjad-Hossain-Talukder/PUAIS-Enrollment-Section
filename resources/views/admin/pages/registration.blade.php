@@ -166,6 +166,12 @@
         </a>
     </li>
     <li class="sidenav-item">
+        <a href="{{url('teacher-student')}}" class="sidenav-link">
+            <i class="sidenav-icon feather icon-file-text"></i>
+            <div>Teacher-Student Details</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
         <a href="{{url('course-detail')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Course Details</div>
@@ -220,45 +226,45 @@
 
 @section('content')
     
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header text-center">
-                    <h3>Registration</h3>
-                </div>
-                <div class="card-body text-center">
-                    <div class="row">
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-3 dv">
-                                
-                                <div class="card my-3" >
-                                    <div class="card-body">
-                                        <a href="{{url('student-register')}}" class="stretched-link text-dark"> <h4>Student Register</h4> </a>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Registration</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-3 dv">
+                                    
+                                    <div class="card my-3" >
+                                        <div class="card-body">
+                                            <a href="{{url('student-register')}}" class="stretched-link text-dark"> <h4>Student Register</h4> </a>
+                                        </div>
                                     </div>
-                                </div>
-                        </div>
-                        <div class="col-lg-2"></div>
-                        <div class="col-lg-3 dv">
-                                
-                                <div class="card my-3" >
-                                    <div class="card-body">
-                                        <a href="{{url('teacher-register')}}" class="stretched-link text-dark"> <h4>Teacher Register</h4> </a>
+                            </div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-3 dv">
+                                    
+                                    <div class="card my-3" >
+                                        <div class="card-body">
+                                            <a href="{{url('teacher-register')}}" class="stretched-link text-dark"> <h4>Teacher Register</h4> </a>
+                                        </div>
                                     </div>
-                                </div>
-                        </div>
-                        <div class="col-lg-2"></div>
+                            </div>
+                            <div class="col-lg-2"></div>
+                            
                         
-                    
 
+                        </div>
                     </div>
                 </div>
+                
             </div>
             
         </div>
-        
     </div>
-</div>
 
 
 

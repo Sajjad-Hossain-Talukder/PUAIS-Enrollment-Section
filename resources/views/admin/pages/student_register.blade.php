@@ -166,6 +166,12 @@
         </a>
     </li>
     <li class="sidenav-item">
+        <a href="{{url('teacher-student')}}" class="sidenav-link">
+            <i class="sidenav-icon feather icon-file-text"></i>
+            <div>Teacher-Student Details</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
         <a href="{{url('course-detail')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Course Details</div>
@@ -300,12 +306,6 @@
                     <label for="sid" >Student ID </label required > 
                     <input type="text" placeholder="Ex : 1803010201623" name="sid"  class='form-control' required> 
                 </div>
-
-               
-
-
-
-                
 
 
         </div>

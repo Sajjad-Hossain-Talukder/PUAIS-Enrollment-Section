@@ -8,6 +8,7 @@ use App\Models\all_user ;
 use App\Models\Admin_info;
 use App\Models\Student_info;
 use App\Models\Teacher_info;
+use App\Models\Session_info;
 use App\Models\Advisorship_info;
 use Image;
 use Session;
@@ -207,7 +208,6 @@ class AdminActivity extends Controller
     public function student_register(){
         return view('admin.pages.student_register');
     }
-
     public function store_student(Request $req){
        
         if ( $req->pass != $req->cpass  ) {
@@ -254,11 +254,9 @@ class AdminActivity extends Controller
 
 
     }
-
     public function teacher_register(){
         return view('admin.pages.teacher_register');
     }
-
     public function store_teacher(Request $req){
        
         if ( $req->pass != $req->cpass  ) {
@@ -305,7 +303,6 @@ class AdminActivity extends Controller
 
 
     }
-
     public function advisorship(){
         return view('admin.pages.advisor_assign');
     }
@@ -329,8 +326,6 @@ class AdminActivity extends Controller
         return view('admin.pages.advisor_assign_two',['stu'=>$stu , 'tec'=>$tec ]);
        
     }
-
-    
     public function store_advisor(Request $req){
         $obj = new Advisorship_info() ; 
         $obj->student_sl = $req->stu ; 
@@ -339,6 +334,32 @@ class AdminActivity extends Controller
             return redirect()->back()->with('success','Succesfully Assigned!!!');
         }
     }
+    public function session_section(){
+        return view('admin.pages.session_section');
+    }
+    public function session(){
+        $row = DB::table('session_infos')->get();
+        return view('admin.pages.session',['row'=>$row]);
+    }
+    public function store_session(Request $req){
+
+        $obj = new Session_info(); 
+
+        $obj->session_name = $req->sn ; 
+        $obj->session_year = $req->sy ;
+
+        if( $obj->save() ) {
+            return redirect()->back()->with('success','Successfully Added!!');
+        }
+
+    }
+    public function section(){
+        return view('admin.pages.section');
+    }
+    public function course_detail(){
+        return view('admin.pages.courses');
+    }
+
 
 
 

@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>Dashboard</title>
+    <title>Sessions</title>
 @stop
 
 @section('intro')
@@ -177,7 +177,7 @@
             <div>Course Details</div>
         </a>
     </li>
-    <li class="sidenav-item">
+    <li class="sidenav-item active">
         <a href="{{url('session-section')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-list"></i>
             <div>Sessions & Sections</div>
@@ -225,161 +225,66 @@
 
 
 @section('content')
-    
-    <div class="container mt-5">
+    <div class="container m-3">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h4>Academic Info</h4>
+                        <h3>Sessions</h3>
                     </div>
-                    <div class="card-body text-center">
-                    <div class="row">
-                    <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="{{url('student-register')}}" class="stretched-link text-dark"> <h4>Student Resister</h4> </a>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="text-center m-2">
+                                    <h5> Create New Session </h5>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="{{url('teacher-register')}}" class="stretched-link text-dark"> <h4>Teacher Resister</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="admin_advisor_assign.php" class="stretched-link text-dark"> <h4>Advisor Assign</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="admin_all_session.php" class="stretched-link text-dark"><h4>Adding Session</h4></a>
-                                </div>
-                            </div>
-                        </div>
+                                <form method='post' action="{{url('store-session')}}">
+                                    {{ csrf_field() }}
+                                    
+                                    
+                                    @if ( Session::has('success'))
+                                        <div class="alert alert-success text-center">
+                                            <strong> {{  Session::get('success') }}</strong>
+                                        </div>
+                                    @endif
+                                    
+                                    <div class="form-group my-3 ">
+                                        <label for="sn">Session Name</label> 
+                                        <input type="text" name="sn" class='form-control' placeholder="use small letter always,i.e,fall,spring">
+                                    </div>
+                                    <div class="form-group my-3 ">
+                                        <label for="sy">Session Year</label> 
+                                        <input type="text" name="sy" class='form-control'>
+                                    </div>
 
-                        <div class="col-lg-4">
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">   
-                                <div class="card-body bg-light">
-                                    <a href="admin_insert_courses.php" class="stretched-link text-dark" ><h4>Adding Courses</h4></a>
+                                    <div class="form-group text-center">
+                                        <button type="submit" class='btn btn-primary btn-block'> Add Session</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="text-center m-2">
+                                    <h5> Existing Sessions </h5>
                                 </div>
+                                    
+                                    <table class="table text-center">
+                                        <thead>
+                                            <tr>
+                                                <th>Session Name </th>
+                                                <th>Session Year </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($row as $r)
+                                            <tr>
+                                                <td>{{$r->session_name}}</td>
+                                                <td>{{$r->session_year}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table >
                             </div>
                         </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="admin_offer_courses.php" class="stretched-link text-dark"><h4>Offer Courses</h4></a>  
-                                </div>
-                            </div>           
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="admin_all_courses.php" class="stretched-link text-dark"><h4>All Courses</h4></a>  
-                                </div>
-                            </div>  
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4>Student Details</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4>Teacher Details</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4> Results</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4> Payment </h4> </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4> Exam Schedule</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4>Class Routine</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4> Notices</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="admin_change_password.php" class="stretched-link text-dark"> <h4> Change Password</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-                    
-
-                    </div>
                     </div>
                 </div>
                 
@@ -387,6 +292,6 @@
             
         </div>
     </div>
-
+    
 @stop
 

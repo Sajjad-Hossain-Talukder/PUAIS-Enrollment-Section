@@ -84,3 +84,10 @@ Route::get('advisorship',[AdminActivity::class,'advisorship'])->middleware('admi
 Route::get('assign-advisor',[AdminActivity::class,'assign_advisor'])->middleware('adminLogin');
 Route::post('store-advisor',[AdminActivity::class,'store_advisor'])->middleware('adminLogin');
 
+Route::get('session-section',[AdminActivity::class,'session_section'])->middleware('adminLogin');
+Route::get('session',[AdminActivity::class,'session'])->middleware('adminLogin');
+Route::post('store-session',[AdminActivity::class,'store_session'])->middleware('adminLogin');
+Route::get('section',[AdminActivity::class,'section'])->middleware('adminLogin');
+// store section left 
+
+Route::get('course-detail',[AdminActivity::class,'course_detail'])->middleware('adminLogin');

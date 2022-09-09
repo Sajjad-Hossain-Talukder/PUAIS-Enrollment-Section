@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>Dashboard</title>
+    <title>Sections</title>
 @stop
 
 @section('intro')
@@ -177,7 +177,7 @@
             <div>Course Details</div>
         </a>
     </li>
-    <li class="sidenav-item">
+    <li class="sidenav-item active">
         <a href="{{url('session-section')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-list"></i>
             <div>Sessions & Sections</div>
@@ -225,161 +225,38 @@
 
 
 @section('content')
-    
     <div class="container mt-5">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h4>Academic Info</h4>
+                        <h3>Sections</h3>
                     </div>
                     <div class="card-body text-center">
-                    <div class="row">
-                    <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="{{url('student-register')}}" class="stretched-link text-dark"> <h4>Student Resister</h4> </a>
-                                </div>
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-3 dv">
+                                    
+                                    <div class="card my-3" >
+                                        <div class="card-body">
+                                            <a href="{{url('session')}}" class="stretched-link text-dark"> <h4>Sessions</h4> </a>
+                                        </div>
+                                    </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="{{url('teacher-register')}}" class="stretched-link text-dark"> <h4>Teacher Resister</h4> </a>
-                                </div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-3 dv">
+                                    
+                                    <div class="card my-3" >
+                                        <div class="card-body">
+                                            <a href="{{url('section')}}" class="stretched-link text-dark"> <h4>Sections</h4> </a>
+                                        </div>
+                                    </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
+                            <div class="col-lg-2"></div>
                             
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="admin_advisor_assign.php" class="stretched-link text-dark"> <h4>Advisor Assign</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="admin_all_session.php" class="stretched-link text-dark"><h4>Adding Session</h4></a>
-                                </div>
-                            </div>
-                        </div>
+                        
 
-                        <div class="col-lg-4">
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">   
-                                <div class="card-body bg-light">
-                                    <a href="admin_insert_courses.php" class="stretched-link text-dark" ><h4>Adding Courses</h4></a>
-                                </div>
-                            </div>
                         </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="admin_offer_courses.php" class="stretched-link text-dark"><h4>Offer Courses</h4></a>  
-                                </div>
-                            </div>           
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="admin_all_courses.php" class="stretched-link text-dark"><h4>All Courses</h4></a>  
-                                </div>
-                            </div>  
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4>Student Details</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4>Teacher Details</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4> Results</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4> Payment </h4> </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4> Exam Schedule</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4>Class Routine</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h4> Notices</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3" >
-                                <img src="uploaded_images/course_image.png" class="card-img-top">
-                                <div class="card-body bg-light">
-                                    <a href="admin_change_password.php" class="stretched-link text-dark"> <h4> Change Password</h4> </a>
-                                </div>
-                            </div>
-                        </div>
-                    
-
-                    </div>
                     </div>
                 </div>
                 
@@ -387,6 +264,6 @@
             
         </div>
     </div>
-
+    
 @stop
 
