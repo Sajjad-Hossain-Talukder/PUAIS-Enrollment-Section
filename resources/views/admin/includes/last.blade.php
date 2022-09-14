@@ -1,5 +1,5 @@
  <!-- Core scripts -->
- <script src="assets/js/pace.js"></script>
+    <script src="assets/js/pace.js"></script>
     <script src="assets/js/jquery-3.3.1.min.js"></script>
     <script src="assets/libs/popper/popper.js"></script>
     <script src="assets/js/bootstrap.js"></script>

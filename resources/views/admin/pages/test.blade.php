@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>All Courses</title>
+    <title>Add Course & Section</title>
 @stop
 
 @section('intro')
@@ -178,18 +178,6 @@
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('enrollment')}}" class="sidenav-link">
-            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
-            <div>Enrollment</div>
-        </a>
-    </li>
-    <li class="sidenav-item">
-        <a href="{{url('pre-enrollment')}}" class="sidenav-link">
-            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
-            <div>Pre-Enrollment</div>
-        </a>
-    </li>
-    <li class="sidenav-item">
         <a href="{{url('session-section')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-list"></i>
             <div>Sessions & Sections</div>
@@ -237,51 +225,6 @@
 
 
 @section('content')
-                           
-
-    
-  <div class="card m-4 border-rounded">
-    <div class="card-header text-center">
-        <h4>All Courses </h4>
-    </div>
-    
-    <div class="card-body p-3">
-        
-        <table class="table text-center"> 
-            <thead>
-                <tr>
-                    <th>Semester</th>
-                    <th>Course Code</th>
-                    <th>Course Title</th>
-                    <th>Prerequisite Course Title</th>
-                    <th>Credits</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($row as $r)
-                    <tr>
-                        <td>{{$r->semester}}</td>
-                        <td>{{$r->course_code}}</td>
-                        <td>{{$r->ct}}</td>
-                        <td>{{$r->pt}}</td>
-                        <td>{{$r->credit}}</td>
-                        <td>
-                            <a href="#" class="btn btn-primary">
-                                update
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-
-        </table>
-
-    </div>
-
-   
-
-  </div>
-   
+<h5>Sajjad Hossain Talukder</h5>
 @stop
 

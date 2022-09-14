@@ -11,6 +11,9 @@ use App\Models\Teacher_info;
 use App\Models\Session_info;
 use App\Models\Course_info;
 use App\Models\Advisorship_info;
+use App\Models\OfferCourse_info;
+use App\Models\PreOfferCourse_info;
+
 use Image;
 use Session;
 use Carbon\Carbon;
@@ -60,7 +63,6 @@ class AdminActivity extends Controller
         return view('admin.edit_routine',['det'=>$det , 'rout' => $rout , 'leng' => $leng ]);
 
     }
-
     public function storeroutine(Request $req , $serial){
 
         $st = $req->st ; 
@@ -97,7 +99,6 @@ class AdminActivity extends Controller
 
 
     }
-
     public function updateroutineentry(Request $req , $serial){
 
         $st = $req->st ; 
@@ -364,7 +365,6 @@ class AdminActivity extends Controller
         $row = DB::table('course_infos')->get();
         return view('admin.pages.new_course',['row'=>$row]);
     }
-
     public function store_course(Request $req){
         if($req->sm == '1') $sem = 'First' ; 
         if($req->sm == '2') $sem = 'Second' ;
@@ -390,15 +390,107 @@ class AdminActivity extends Controller
 
 
     }
-
     public function all_course(){
         $row = DB::table('course_infos as a')->select('b.id','b.nsemester','b.semester','b.course_code','a.course_title as pt','b.prerequisite','b.credit','b.course_title as ct')
                 ->join('course_infos as b','a.id','b.prerequisite')
                 ->get();
         return view('admin.pages.all_course',['row'=>$row]);
     }
-    
+    public function offer_course(){
+        $row = DB::table('session_infos')->orderBy('created_at', 'desc')->get();
+        $row = (object) ($row);
+        return view('admin.pages.offer_course',['row'=>$row]);
+    }
+    public function offer_course_section($id){
 
+        Session::forget('blank');
+
+        $row = DB::table('session_infos')->where('id',$id)->first();
+        $course = DB::table('course_infos')->get();
+        $teacher = DB::table('teacher_infos')->get();
+
+        $assigned = DB::table('offer_course_infos')
+            -> join('course_infos','course_infos.id', '=', 'offer_course_infos.course_sl')
+            -> join('teacher_infos','teacher_infos.id', '=', 'offer_course_infos.teacher_sl')
+            -> where('session_sl',$id)
+            ->orderBy('course_infos.nsemester', 'asc')
+            -> get();
+
+        if( !count($assigned) ) Session::put('blank','Sorry !! No Course assigned yet.');
+
+        return view('admin.pages.offer_course_section',['row'=>$row,'course'=>$course,'teacher'=>$teacher , 'assigned' => $assigned ]); 
+        
+    }
+    public function add_course(Request $req){
+
+        $obj = new OfferCourse_info() ; 
+
+        $obj->session_sl = $req->session ; 
+        $obj->course_sl = $req->course ; 
+        $obj->teacher_sl = $req->teacher ; 
+        $obj->student_capacity = $req->sc ; 
+        $obj->section = $req->sec ; 
+
+        if ( $obj->save() ){
+            Session::put('success','Successfully Added !');
+            $row = DB::table('session_infos')->where('id',$req->session)->first();
+            $course = DB::table('course_infos')->get();
+            $teacher = DB::table('teacher_infos')->get();
+            return redirect('offer-course-section/'.$req->session);
+        }
+
+    }
+    public function pre_enrollment(){
+
+        $row = DB::table('session_infos')->orderBy('created_at', 'desc')->get();
+        $row = (object) ($row);
+        return view('admin.pages.pre_enrollment',['row'=>$row]);
+    }
+    public function pre_enrollment_offer_course($id){
+
+        $row = DB::table('session_infos')->where('id',$id)->first();
+        return view('admin.pages.pre_enrollment_offer_course',['row'=>$row]);
+
+    }
+    public function pre_all_assigned_course($id){
+
+        $row = DB::table('session_infos')->where('id',$id)->first();
+
+        $assigned = DB::table('pre_offer_course_infos')
+        -> join('course_infos','course_infos.id', '=', 'pre_offer_course_infos.course_sl')
+        -> where('session_sl',$id)
+        -> orderBy('course_infos.nsemester', 'asc')
+        -> get(); 
+
+        return view('admin.pages.pre_all_assigned_course',['assigned'=>$assigned,'row'=>$row]);
+    }
+
+    public function pre_add_new_course($id){
+
+        $row = DB::table('session_infos')->where('id',$id)->first();
+
+         $assigned = DB::table('course_infos')->whereNotIn('id', function($q){
+                    $q->select('course_sl')->from('pre_offer_course_infos');})
+                    ->where('id','!=',1)
+                    ->get();
+
+        //dd($assigned);
+
+        return view('admin.pages.pre_add_new_course',['assigned'=>$assigned,'row'=>$row]);
+
+    }
+
+    public function pre_add_course(Request $req , $id ){
+        
+        $obj = new PreOfferCourse_info();
+        $obj->course_sl = $req->cid ;
+        $obj->session_sl = $id ; 
+
+        if($obj->save()){
+            return redirect()->back()->with('success','Succesfully Added!!');
+        }
+
+    }
 
 
 

@@ -42,8 +42,8 @@ Route::get('teacher-register',function(){
 });
 
 
-Route::get('offer-course',[AdminActivity::class,'offercourses']);
-Route::post('add-course',[AdminActivity::class,'addcourse']);
+Route::get('offer-courses',[AdminActivity::class,'offercourses']);
+Route::post('add-courses',[AdminActivity::class,'addcourse']);
 Route::get('edit-routine/{serial}',[AdminActivity::class,'show']);
 Route::post('store-routine/{serial}',[AdminActivity::class , 'storeroutine']);
 Route::get('delete-routine/{serial}',[AdminActivity::class , 'deleteroutine']);
@@ -94,3 +94,14 @@ Route::get('course-detail',[AdminActivity::class,'course_detail'])->middleware('
 Route::get('add-new-course',[AdminActivity::class,'add_new_course'])->middleware('adminLogin');
 Route::post('store-course',[AdminActivity::class,'store_course'])->middleware('adminLogin');
 Route::get('all-course',[AdminActivity::class,'all_course'])->middleware('adminLogin');
+Route::get('offer-course',[AdminActivity::class,'offer_course'])->middleware('adminLogin');
+
+Route::get('offer-course-section/{id}',[AdminActivity::class,'offer_course_section'])->middleware('adminLogin');
+Route::post('add-course',[AdminActivity::class,'add_course'])->middleware('adminLogin');
+
+
+Route::get('pre-enrollment',[AdminActivity::class,'pre_enrollment'])->middleware('adminLogin');
+Route::get('pre-enrollment-offer-course/{id}',[AdminActivity::class,'pre_enrollment_offer_course'])->middleware('adminLogin');
+Route::get('pre-all-assigned-course/{id}',[AdminActivity::class,'pre_all_assigned_course'])->middleware('adminLogin');
+Route::get('pre-add-new-course/{id}',[AdminActivity::class,'pre_add_new_course'])->middleware('adminLogin');
+Route::post('pre-add-course/{id}',[AdminActivity::class,'pre_add_course'])->middleware('adminLogin');

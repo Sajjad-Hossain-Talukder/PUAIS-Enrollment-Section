@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>All Courses</title>
+    <title>Offer Courses</title>
 @stop
 
 @section('intro')
@@ -171,7 +171,7 @@
             <div>Teacher-Student Details</div>
         </a>
     </li>
-    <li class="sidenav-item active">
+    <li class="sidenav-item  active">
         <a href="{{url('course-detail')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Course Details</div>
@@ -237,51 +237,25 @@
 
 
 @section('content')
-                           
-
     
-  <div class="card m-4 border-rounded">
-    <div class="card-header text-center">
-        <h4>All Courses </h4>
+    <div class="container m-5">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4>Offer Courses</h4>
+            </div>
+            <div class="card-body">
+                <h6 class="text-center">Sessions</h6>
+                <div class="container">
+                    <div class="row">
+                        @foreach($row as $r)
+                            <div class="col-lg-4 my-1">
+                                <a href="{{url('offer-course-section/'.$r->id)}}" class ="btn btn-primary btn-block"> {{$r->session_name." ".$r->session_year }}</a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="card-body p-3">
-        
-        <table class="table text-center"> 
-            <thead>
-                <tr>
-                    <th>Semester</th>
-                    <th>Course Code</th>
-                    <th>Course Title</th>
-                    <th>Prerequisite Course Title</th>
-                    <th>Credits</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($row as $r)
-                    <tr>
-                        <td>{{$r->semester}}</td>
-                        <td>{{$r->course_code}}</td>
-                        <td>{{$r->ct}}</td>
-                        <td>{{$r->pt}}</td>
-                        <td>{{$r->credit}}</td>
-                        <td>
-                            <a href="#" class="btn btn-primary">
-                                update
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-
-        </table>
-
-    </div>
-
-   
-
-  </div>
-   
 @stop
 

@@ -177,6 +177,18 @@
             <div>Course Details</div>
         </a>
     </li>
+    <li class="sidenav-item">
+        <a href="{{url('enrollment')}}" class="sidenav-link">
+            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
+            <div>Enrollment</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
+        <a href="{{url('pre-enrollment')}}" class="sidenav-link">
+            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
+            <div>Pre-Enrollment</div>
+        </a>
+    </li>
     <li class="sidenav-item active">
         <a href="{{url('session-section')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-list"></i>

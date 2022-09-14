@@ -151,7 +151,7 @@
     <ul class="sidenav-inner py-1">
 
     <!-- Dashboards -->
-    <li class="sidenav-item active">
+    <li class="sidenav-item">
         <a href="{{url('dashboard')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-home"></i>
             <div>Dashboard</div>
@@ -175,6 +175,18 @@
         <a href="{{url('course-detail')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Course Details</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
+        <a href="{{url('enrollment')}}" class="sidenav-link">
+            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
+            <div>Enrollment</div>
+        </a>
+    </li>
+    <li class="sidenav-item">
+        <a href="{{url('pre-enrollment')}}" class="sidenav-link">
+            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
+            <div>Pre-Enrollment</div>
         </a>
     </li>
     <li class="sidenav-item active">
@@ -250,7 +262,7 @@
                                     
                                     <div class="form-group my-3 ">
                                         <label for="sn">Session Name</label> 
-                                        <input type="text" name="sn" class='form-control' placeholder="use small letter always,i.e,fall,spring">
+                                        <input type="text" name="sn" class='form-control' placeholder="use Capitalization format ,i.e, Fall,Spring">
                                     </div>
                                     <div class="form-group my-3 ">
                                         <label for="sy">Session Year</label> 

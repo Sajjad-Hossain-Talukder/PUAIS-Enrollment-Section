@@ -16,8 +16,8 @@ class CreateAdvisorshipInfosTable extends Migration
         Schema::create('advisorship_infos', function (Blueprint $table) {
             $table->id();
 
-            $table->bigInteger('student_sl')->unsigned();;
-            $table->bigInteger('teacher_sl')->unsigned();;
+            $table->bigInteger('student_sl')->unsigned();
+            $table->bigInteger('teacher_sl')->unsigned();
 
             $table->foreign('student_sl')
             ->references('id')->on('student_infos')
