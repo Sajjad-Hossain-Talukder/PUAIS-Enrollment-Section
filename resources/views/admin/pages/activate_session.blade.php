@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>{{ $row->session_name." ".$row->session_year }}</title>
+    <title>Activate Session</title>
 @stop
 
 @section('intro')
@@ -127,7 +127,7 @@
                             <div class="demo-navbar-user nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                                     <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
-                                        <img src="{{url('thumbnail/'.Session::get('image'))}}" alt class="d-block ui-w-30 rounded-circle">
+                                        <img src="thumbnail/{{ Session::get('image') }}" alt class="d-block ui-w-30 rounded-circle">
                                         <span class="px-1 mr-lg-2 ml-2 ml-lg-0">{{ Session::get('username') }}</span>
                                     </span>
                                 </a>
@@ -183,13 +183,13 @@
             <div>Enrollment</div>
         </a>
     </li>
-    <li class="sidenav-item  active">
+    <li class="sidenav-item">
         <a href="{{url('pre-enrollment')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Pre-Enrollment</div>
         </a>
     </li>
-    <li class="sidenav-item">
+    <li class="sidenav-item active">
         <a href="{{url('session-section')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-list"></i>
             <div>Sessions & Sections</div>
@@ -238,54 +238,79 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="card my-5">
-
-            <div class="container border-bottom text-center p-4">
-                <h4>{{ $row->session_name." ".$row->session_year}}</h4>
+    <div class="container mt-4">
+        <div class="card">
+            <div class="text-center mt-5 mb-3">
+                <h4>Activate Session</h4>
             </div>
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-8">
-                        <table class="table text-center">
-                            <thead>
-                                <tr>
-                                    <th>Semester</th>
-                                    <th>Course Title</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($assigned as $as )
-                                    <tr>
-                                        <td>{{$as->semester}}</td>
-                                        <td>{{$as->course_title}}</td>
-                                        <td>
-                                            <a class="btn btn-danger" href="{{url('pre-remove-course/'.$as->id)}}" > Remove </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
+            <main>
+                <div class="other-section">
+                    <ul class="nav nav-tabs justify-content-center">
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#pc"> Select Session </a></li>
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#rc">Active Session</a></li>
+                       
+                    </ul>
 
-                        </table>
+                    <div class="tab-content">
+                        <div id="pc" class="tab-pane active">
+                            <div class="container text-center">
+                        
+                                <div class="container m-5">
+                                    @if ( Session::has('set'))
+                                        <div class="alert alert-success text-center">
+                                            <strong> {{  Session::get('set') }}</strong>
+                                        </div>
+                                    @endif
+                                    <div class="row">
+                                        <div class="col-lg-4 my-1">
+                                            <a href="{{url('store-activate-session/0')}}" class ="btn btn-warning btn-block"> Reset </a>
+                                        </div>
+                                        @foreach($row as $r)
+                                            <div class="col-lg-4 my-1">
+                                                <a href="{{url('store-activate-session/'.$r->id)}}" class ="btn btn-primary btn-block"> {{$r->session_name." ".$r->session_year }}</a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                
+                            
+                            </div>
+                        </div>
+                    
+
+                    
+                        <div id="rc" class="tab-pane">
+                            <div class="container text-center">
+                                @if($sess == null )
+                                    <div class="alert alert-danger text-center m-5 pt-3">
+                                            <strong> <h3>No Active Session Available</h3> </strong>
+                                    </div>
+                                   
+                                @endif 
+
+                                @if($sess )
+                                    <div class="alert alert-success text-center m-5 pt-3">
+                                            <strong> <h3>{{ $sess->session_name." ".$sess->session_year  }} </h3></strong>
+                                    </div>
+                                @endif 
+
+
+                            
+                            </div>
+                        </div>
+                
                     </div>
-                    <div class="col-lg-2"></div>
                 </div>
-            </div>
-
+            
+            </main>
+    
+          
 
 
         </div>
     </div>
     
-
-
-
+    
 @stop
-
-
-   
-
 

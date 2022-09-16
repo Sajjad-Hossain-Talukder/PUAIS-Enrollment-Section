@@ -50,6 +50,7 @@
                     </thead>
                     <tbody>
                         @foreach($assigned as $as )
+                            @if($as->id != 0 )
                             <tr>
                                 <td>{{$as->semester}}</td>
                                 <td>{{$as->course_title}}</td>
@@ -61,6 +62,7 @@
                                     </form>
                                 </td>
                             </tr>
+                            @endif
                         @endforeach
                     </tbody>
                   

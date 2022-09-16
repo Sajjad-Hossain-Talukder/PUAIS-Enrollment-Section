@@ -246,25 +246,17 @@
                     </div>
                     <div class="card-body text-center">
                         <div class="row">
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-3 dv">
-                                    
-                                    <div class="card my-3" >
-                                        <div class="card-body">
-                                            <a href="{{url('session')}}" class="stretched-link text-dark"> <h4>Sessions</h4> </a>
-                                        </div>
-                                    </div>
+                            <div class="col-lg-3 dv pt-3 m-2">
+                                <a href="{{url('session')}}" class="stretched-link text-dark"> <h5>Sessions</h5> </a>
                             </div>
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-3 dv">
-                                    
-                                    <div class="card my-3" >
-                                        <div class="card-body">
-                                            <a href="{{url('section')}}" class="stretched-link text-dark"> <h4>Sections</h4> </a>
-                                        </div>
-                                    </div>
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-3 dv pt-3 m-2">
+                                <a href="{{url('section')}}" class="stretched-link text-dark"> <h5>Sections</h5> </a>
                             </div>
-                            <div class="col-lg-2"></div>
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-3 dv pt-3 m-2">
+                                <a href="{{url('activate-session')}}" class="stretched-link text-dark"> <h5>Activate Session</h5> </a>
+                            </div>
                             
                         
 

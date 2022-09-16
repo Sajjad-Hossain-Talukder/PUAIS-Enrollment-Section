@@ -1,7 +1,7 @@
-@extends('admin.layouts.dash')
+@extends('student.layouts.dash')
 
 @section('title')
-    <title>{{ $row->session_name." ".$row->session_year }}</title>
+    <title>{{ Session::get('username') }} - Dashboard</title>
 @stop
 
 @section('intro')
@@ -127,7 +127,7 @@
                             <div class="demo-navbar-user nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                                     <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
-                                        <img src="{{url('thumbnail/'.Session::get('image'))}}" alt class="d-block ui-w-30 rounded-circle">
+                                        <img src="thumbnail/{{ Session::get('image') }}" alt class="d-block ui-w-30 rounded-circle">
                                         <span class="px-1 mr-lg-2 ml-2 ml-lg-0">{{ Session::get('username') }}</span>
                                     </span>
                                 </a>
@@ -151,8 +151,8 @@
     <ul class="sidenav-inner py-1">
 
     <!-- Dashboards -->
-    <li class="sidenav-item">
-        <a href="{{url('dashboard')}}" class="sidenav-link">
+    <li class="sidenav-item active">
+        <a href="{{url('student-dashboard')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-home"></i>
             <div>Dashboard</div>
         </a>
@@ -160,73 +160,63 @@
 
     <!-- Layouts -->
     <li class="sidenav-item">
-        <a href="{{url('registration')}}" class="sidenav-link">
+        <a href="{{url('my-courses')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-file-text"></i>
-            <div>Registration</div>
+            <div>Courses</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('teacher-student')}}" class="sidenav-link">
-            <i class="sidenav-icon feather icon-file-text"></i>
-            <div>Teacher-Student Details</div>
-        </a>
-    </li>
-    <li class="sidenav-item">
-        <a href="{{url('course-detail')}}" class="sidenav-link">
-            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
-            <div>Course Details</div>
-        </a>
-    </li>
-    <li class="sidenav-item">
-        <a href="{{url('enrollment')}}" class="sidenav-link">
-            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
+        <a href="{{url('student-enrollment')}}" class="sidenav-link">
+            <i class="sidenav-icon fa fa-bars" aria-hidden="true"></i>
             <div>Enrollment</div>
         </a>
     </li>
-    <li class="sidenav-item  active">
-        <a href="{{url('pre-enrollment')}}" class="sidenav-link">
-            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
+    <li class="sidenav-item">
+        <a href="{{url('student-pre-enrollment')}}" class="sidenav-link">
+        <i class="sidenav-icon fa fa-th-list" aria-hidden="true"></i>
             <div>Pre-Enrollment</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('session-section')}}" class="sidenav-link">
-            <i class="sidenav-icon feather icon-list"></i>
-            <div>Sessions & Sections</div>
+        <a href="{{url('student-inbox')}}" class="sidenav-link">
+            <i class="sidenav-icon fa fa-comments" aria-hidden="true"></i>
+            <div>Inbox</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('class-routine')}}" class="sidenav-link">
+        <a href="{{url('student-payment')}}" class="sidenav-link">
+        <i class="sidenav-icon fa fa-credit-card" aria-hidden="true"></i>
+            <div>Payments</div>
+        </a>
+    </li>
+
+    <li class="sidenav-item">
+        <a href="{{url('student-class-routine')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-calendar-alt"></i>
             <div>Class Routine</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('advisorship')}}" class="sidenav-link">
+        <a href="{{url('student-advisorship')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-archive"></i>
             <div>Advisorship</div>
         </a>
     </li>
+
     <li class="sidenav-item">
-        <a href="{{url('payments')}}" class="sidenav-link">
-            <i class="sidenav-icon feather icon-credit-card"></i>
-            <div>Payments</div>
-        </a>
-    </li>
-    <li class="sidenav-item">
-        <a href="{{url('results')}}" class="sidenav-link">
+        <a href="{{url('student-result')}}" class="sidenav-link">
             <i class="sidenav-icon 	fas fa-server"></i>
             <div>Results</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('exam-schedule')}}" class="sidenav-link">
+        <a href="{{url('student-exam-schedule')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-layer-group"></i>
             <div>Exam Scheduleing</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('notice-event')}}" class="sidenav-link">
+        <a href="{{url('student-notice-event')}}" class="sidenav-link">
             <i class="sidenav-icon 	fas fa-mail-bulk"></i>
             <div>Notices & Events</div>
         </a>
@@ -238,54 +228,127 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="card my-5">
-
-            <div class="container border-bottom text-center p-4">
-                <h4>{{ $row->session_name." ".$row->session_year}}</h4>
-            </div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-8">
-                        <table class="table text-center">
-                            <thead>
-                                <tr>
-                                    <th>Semester</th>
-                                    <th>Course Title</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($assigned as $as )
-                                    <tr>
-                                        <td>{{$as->semester}}</td>
-                                        <td>{{$as->course_title}}</td>
-                                        <td>
-                                            <a class="btn btn-danger" href="{{url('pre-remove-course/'.$as->id)}}" > Remove </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-
-                        </table>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 my-4 ">
+                <div class="card">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2 p-3">
+                                <img src="thumbnail/{{ $row->image }}"  class="img-fluid rounded float-right" alt="{{ $row->name }}" >
+                            </div>
+                            <div class="col-lg-6 text-center pt-5">
+                                <h4>Hello ,  <span style="color:#1461AA; font-size:28px;"> {{ $row->name }} </span>  ! </h4>
+                                <h3>Welcome to P U A I S</h3>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
                     </div>
-                    <div class="col-lg-2"></div>
                 </div>
             </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header"><h4 class="text-center"> Basic Info </h4></div>
+                    <div class="card-body text-center">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-1 mt-1"> </div>
+                                <div class="col-lg-5  mt-1 dv pt-3"> 
+                                <i class="fa fa-user" aria-hidden="true"></i><br>
+                                    <h5> {{ $row->student_id }} </h5>  <br>
+                                </div>
+                                <div class="col-lg-1  mt-1"> </div>
+                                <div class="col-lg-4 dv  mt-1 pt-3">
+                                    <i class="fa fa-square" aria-hidden="true"></i><br>
+                                    <h5> {{ $row->batch }} Batch </h5> <br>
+                                </div>
+                                <div class="col-lg-1  mt-1"> </div>
+                                <div class="col-lg-1  mt-1"> </div>
+                                <div class="col-lg-4 dv  mt-1 pt-3">
+                                    <i class="fa fa-university" aria-hidden="true"></i><br>
+                                    <h5>{{ $row->department }}</h5> <br>
+                                </div>
+                                <div class="col-lg-1  mt-1"> </div>
+                                <div class="col-lg-5 dv  mt-1 pt-3">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i><br>
+                                    <h5>{{ $row->email }}</h5><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+        
+                
+                <div class="container">
+                        <div class="row text-center">
+                            <div class="col-lg-5  p-4 m-4 intr">
+                                <h5> <a href="#"> Profile </a></h5>
+                            </div>
+                            <div class="col-lg-5  p-4 m-4 intr" >
+                                <h5> <a href="#"> Education & Skills </a></h5>
+                            </div>
+                            <div class="col-lg-5  p-4 m-4 intr">
+                                <h5> <a href="#"> Licenses & Certifications </a></h5>
+                            </div>
+                            <div class="col-lg-5  p-4 m-4 intr">
+                                <h5> <a href="#">Accomplishments </a></h5>
+                            </div>
+                        </div>
+                </div>
+
+
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-dark" >
+                    <div class="card-header"><h4 class="text-center">Advisor</h4></div>
+                    <div class="card-body text-center">
+                        
+                        
+                        <img class="img-fluid img-thumbnail rounded p-3  mx-auto d-block" src="thumbnail/{{$adv->image}}"> <hr>
+                             
+                        <div >  <h6> {{ $adv->name }}</h6> </div>
+                        <div >  
+                            <p class="text-center">
+                                {{ $adv->designation }}
+                                <br>
+                                {{ $adv->email}}
+                                <br>
+                                {{ $adv->mobile}}
+                            </p> 
+                        </div>
+                        
+                        
+                        <div> <a href="student_contact_advisor.php" class="text-center btn btn-warning">Contact</a></div>
+                        
+                     </div>
+                </div>
+                <div class="card mt-3 p-5 border-dark" >
+                    <a href="student_inbox.php" class="card-link stretched-link"> <h4 class="text-center"> I N B O X </h4></a>
+                </div>
+                
+                <div class="card mt-3 border-dark" >
+                    <h5 class="text-center mt-2">Batchmates</h5> <hr>
+                    <div class="container">
+                        <div class="row">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-3 border-dark">
+                    <h4 class="text-center mt-3">Calender</h4>
+                    <div data-tockify-component="calendar" data-tockify-calendar="know.what"></div>
+                    <script data-cfasync="false" data-tockify-script="embed" src="https://public.tockify.com/browser/embed.js"></script>
+                </div>
+
+            </div>
 
 
         </div>
     </div>
+
+  
     
-
-
-
 @stop
-
-
-   
-
 

@@ -40,9 +40,12 @@ $(function() {
   }
 });
 
+/*
 $('body').append('' +
-    '<div class="fixed-button active">' + '<a href="https://codedthemes.com/item/bhumlu-bootstrap-admin-template/" target="_blank" class="btn btn-md btn-primary">' + '<i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy now' +
+    '<div class="fixed-button active">' + '<a href="https://puc.ac.bd/" target="_blank" class="btn btn-md btn-primary">' + '<i class="fa fa-google" aria-hidden="true"></i> Premier University' +
     '</a> ' + '</div>' + '');
+*/
+
 var $window = $(window);
 var nav = $('.fixed-button');
 $window.scroll(function() {

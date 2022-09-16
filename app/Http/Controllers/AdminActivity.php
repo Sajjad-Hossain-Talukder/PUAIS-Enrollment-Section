@@ -13,6 +13,8 @@ use App\Models\Course_info;
 use App\Models\Advisorship_info;
 use App\Models\OfferCourse_info;
 use App\Models\PreOfferCourse_info;
+use App\Models\Activate_session_info;
+use App\Models\Pre_enroll_course_info;
 
 use Image;
 use Session;
@@ -152,9 +154,9 @@ class AdminActivity extends Controller
         return view('admin.update_routine',['det'=>$row , 'val'=>$val ]);
     }
 
-
     public function dashboard(){
-        return view('admin.pages.dashboard');
+        if(Session::get('userrole')== 'admin') return view('admin.pages.dashboard');
+        if(Session::get('userrole')== 'teacher') return view('student.pages.teacher');   
     }
 
     public function adminassign(Request $req ){
@@ -343,6 +345,30 @@ class AdminActivity extends Controller
         $row = DB::table('session_infos')->get();
         return view('admin.pages.session',['row'=>$row]);
     }
+    public function activate_session(){
+        $row = DB::table('session_infos')->orderBy('created_at', 'desc')->get();
+        $flight = Activate_session_info::find(1);
+        if($flight) $sess = DB::table('session_infos')->where('id',$flight->session_sl)->first();
+        else $sess = null;
+        $row = (object) ($row);
+        return view('admin.pages.activate_session',['row'=>$row,'sess'=>$sess ]);
+    }
+   
+    public function store_activate_session($id){
+
+        $flight = Activate_session_info::find(1);
+        if($flight) {
+            $flight->session_sl = $id ;
+            $flight->save();
+        }
+        else {
+            $obj = new Activate_session_info();
+            $obj->session_sl = 0 ; 
+            $obj->save();
+        }
+
+        return redirect()->back()->with('set','Session Resetted !!!');
+    }
     public function store_session(Request $req){
 
         $obj = new Session_info(); 
@@ -469,14 +495,18 @@ class AdminActivity extends Controller
 
         $row = DB::table('session_infos')->where('id',$id)->first();
 
-         $assigned = DB::table('course_infos')->whereNotIn('id', function($q){
-                    $q->select('course_sl')->from('pre_offer_course_infos');})
-                    ->where('id','!=',1)
-                    ->get();
+        $assigned = DB::table('pre_offer_course_infos')->where('session_sl',$id)->get();
+        
+        $all = DB::table('course_infos')->get();
 
-        //dd($assigned);
-
-        return view('admin.pages.pre_add_new_course',['assigned'=>$assigned,'row'=>$row]);
+        foreach ($all as $a ) {
+            foreach ($assigned as $ass ){
+                if($a->id == $ass->course_sl || $a->id == 1 ) 
+                    $a->id = 0 ;
+            }
+        }
+      
+        return view('admin.pages.pre_add_new_course',['assigned'=>$all ,'row'=>$row ,]);
 
     }
 

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Session;
 
-class adminLogin
+class studentLogin
 {
     /**
      * Handle an incoming request.
@@ -17,11 +17,9 @@ class adminLogin
      */
     public function handle(Request $request, Closure $next)
     {
-        
-        if( Session::get('userrole') != 'admin'){
+        if( Session::get('userrole') != 'student'){
             return redirect('login');
         }
-
         return $next($request);
     }
 }

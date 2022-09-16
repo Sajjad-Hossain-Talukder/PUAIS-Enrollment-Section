@@ -127,7 +127,7 @@
                             <div class="demo-navbar-user nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                                     <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
-                                        <img src="thumbnail/{{ Session::get('image') }}" alt class="d-block ui-w-30 rounded-circle">
+                                        <img src="{{url('thumbnail/'.Session::get('image'))}}" alt class="d-block ui-w-30 rounded-circle">
                                         <span class="px-1 mr-lg-2 ml-2 ml-lg-0">{{ Session::get('username') }}</span>
                                     </span>
                                 </a>
@@ -238,11 +238,11 @@
 
 @section('content')
     
-    <div class="container m-2">
+    <div class="container my-5">
         <div class="card">
-            <h4 class="text-center m-2">Pre Enrollment</h4>
-            <h6 class="text-center"> Select Session</h6>
-            <div class="container m-2">
+            <h4 class="text-center mt-4 mb-3">Pre Enrollment</h4>
+            <h6 class="text-center mb-5"> Select Session</h6>
+            <div class="container mb-5">
                 <div class="row">
                     @foreach($row as $r)
                         <div class="col-lg-4 my-1">

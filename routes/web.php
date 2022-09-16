@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClassRoutine;
 use App\Http\Controllers\AdminActivity;
+use App\Http\Controllers\StudentActivity;
 use App\Http\Controllers\LoginActivity;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\Carbon;
@@ -68,13 +69,12 @@ Route::post('admin-registration',[AdminActivity::class,'adminassign']);
 
 
 
-Route::get('login-admin',function(){return view('admin.pages.login');});
+Route::get('login',function(){return view('admin.pages.login');});
 Route::post('check-login',[LoginActivity::class,'checklogin']);
 Route::get('logout',[LoginActivity::class,'logout']);
 
-
-Route::get('profile',[AdminActivity::class,'profile'])->middleware('adminLogin');
 Route::get('dashboard',[AdminActivity::class,'dashboard'])->middleware('adminLogin');
+Route::get('profile',[AdminActivity::class,'profile'])->middleware('adminLogin');
 Route::get('registration',[AdminActivity::class,'registration'])->middleware('adminLogin');
 Route::get('student-register',[AdminActivity::class,'student_register'])->middleware('adminLogin');
 Route::post('store-student',[AdminActivity::class,'store_student'])->middleware('adminLogin');
@@ -88,6 +88,9 @@ Route::get('session-section',[AdminActivity::class,'session_section'])->middlewa
 Route::get('session',[AdminActivity::class,'session'])->middleware('adminLogin');
 Route::post('store-session',[AdminActivity::class,'store_session'])->middleware('adminLogin');
 Route::get('section',[AdminActivity::class,'section'])->middleware('adminLogin');
+Route::get('activate-session',[AdminActivity::class,'activate_session'])->middleware('adminLogin');
+Route::get('store-activate-session/{id}',[AdminActivity::class,'store_activate_session'])->middleware('adminLogin');
+
 // store section left 
 
 Route::get('course-detail',[AdminActivity::class,'course_detail'])->middleware('adminLogin');
@@ -105,3 +108,16 @@ Route::get('pre-enrollment-offer-course/{id}',[AdminActivity::class,'pre_enrollm
 Route::get('pre-all-assigned-course/{id}',[AdminActivity::class,'pre_all_assigned_course'])->middleware('adminLogin');
 Route::get('pre-add-new-course/{id}',[AdminActivity::class,'pre_add_new_course'])->middleware('adminLogin');
 Route::post('pre-add-course/{id}',[AdminActivity::class,'pre_add_course'])->middleware('adminLogin');
+
+
+
+Route::get('student-dashboard',[StudentActivity::class,'dashboard'])->middleware('studentLogin');
+Route::get('student-pre-enrollment',[StudentActivity::class,'pre_enrollment'])->middleware('studentLogin');
+Route::post('store-enroll',[StudentActivity::class,'store_enroll'])->middleware('studentLogin');
+
+
+
+
+
+
+

@@ -1,7 +1,7 @@
-@extends('admin.layouts.dash')
+@extends('student.layouts.dash')
 
 @section('title')
-    <title>{{ $row->session_name." ".$row->session_year }}</title>
+    <title>{{ Session::get('username') }} - Pre Enrollment </title>
 @stop
 
 @section('intro')
@@ -127,7 +127,7 @@
                             <div class="demo-navbar-user nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                                     <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
-                                        <img src="{{url('thumbnail/'.Session::get('image'))}}" alt class="d-block ui-w-30 rounded-circle">
+                                        <img src="thumbnail/{{ Session::get('image') }}" alt class="d-block ui-w-30 rounded-circle">
                                         <span class="px-1 mr-lg-2 ml-2 ml-lg-0">{{ Session::get('username') }}</span>
                                     </span>
                                 </a>
@@ -152,7 +152,7 @@
 
     <!-- Dashboards -->
     <li class="sidenav-item">
-        <a href="{{url('dashboard')}}" class="sidenav-link">
+        <a href="{{url('student-dashboard')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-home"></i>
             <div>Dashboard</div>
         </a>
@@ -160,73 +160,63 @@
 
     <!-- Layouts -->
     <li class="sidenav-item">
-        <a href="{{url('registration')}}" class="sidenav-link">
+        <a href="{{url('my-courses')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-file-text"></i>
-            <div>Registration</div>
+            <div>Courses</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('teacher-student')}}" class="sidenav-link">
-            <i class="sidenav-icon feather icon-file-text"></i>
-            <div>Teacher-Student Details</div>
-        </a>
-    </li>
-    <li class="sidenav-item">
-        <a href="{{url('course-detail')}}" class="sidenav-link">
-            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
-            <div>Course Details</div>
-        </a>
-    </li>
-    <li class="sidenav-item">
-        <a href="{{url('enrollment')}}" class="sidenav-link">
-            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
+        <a href="{{url('student-enrollment')}}" class="sidenav-link">
+            <i class="sidenav-icon fa fa-bars" aria-hidden="true"></i>
             <div>Enrollment</div>
         </a>
     </li>
     <li class="sidenav-item  active">
-        <a href="{{url('pre-enrollment')}}" class="sidenav-link">
-            <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
+        <a href="{{url('student-pre-enrollment')}}" class="sidenav-link">
+        <i class="sidenav-icon fa fa-th-list" aria-hidden="true"></i>
             <div>Pre-Enrollment</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('session-section')}}" class="sidenav-link">
-            <i class="sidenav-icon feather icon-list"></i>
-            <div>Sessions & Sections</div>
+        <a href="{{url('student-inbox')}}" class="sidenav-link">
+            <i class="sidenav-icon fa fa-comments" aria-hidden="true"></i>
+            <div>Inbox</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('class-routine')}}" class="sidenav-link">
+        <a href="{{url('student-payment')}}" class="sidenav-link">
+        <i class="sidenav-icon fa fa-credit-card" aria-hidden="true"></i>
+            <div>Payments</div>
+        </a>
+    </li>
+
+    <li class="sidenav-item">
+        <a href="{{url('student-class-routine')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-calendar-alt"></i>
             <div>Class Routine</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('advisorship')}}" class="sidenav-link">
+        <a href="{{url('student-advisorship')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-archive"></i>
             <div>Advisorship</div>
         </a>
     </li>
+
     <li class="sidenav-item">
-        <a href="{{url('payments')}}" class="sidenav-link">
-            <i class="sidenav-icon feather icon-credit-card"></i>
-            <div>Payments</div>
-        </a>
-    </li>
-    <li class="sidenav-item">
-        <a href="{{url('results')}}" class="sidenav-link">
+        <a href="{{url('student-result')}}" class="sidenav-link">
             <i class="sidenav-icon 	fas fa-server"></i>
             <div>Results</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('exam-schedule')}}" class="sidenav-link">
+        <a href="{{url('student-exam-schedule')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-layer-group"></i>
             <div>Exam Scheduleing</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('notice-event')}}" class="sidenav-link">
+        <a href="{{url('student-notice-event')}}" class="sidenav-link">
             <i class="sidenav-icon 	fas fa-mail-bulk"></i>
             <div>Notices & Events</div>
         </a>
@@ -238,54 +228,149 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="card my-5">
 
-            <div class="container border-bottom text-center p-4">
-                <h4>{{ $row->session_name." ".$row->session_year}}</h4>
+    <div class="container my-5">
+        <div class="card">
+            <div class="text-center mt-5 mb-3">
+                <h4>Pre-Enrollment</h4>
             </div>
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-8">
-                        <table class="table text-center">
-                            <thead>
-                                <tr>
-                                    <th>Semester</th>
-                                    <th>Course Title</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($assigned as $as )
-                                    <tr>
-                                        <td>{{$as->semester}}</td>
-                                        <td>{{$as->course_title}}</td>
-                                        <td>
-                                            <a class="btn btn-danger" href="{{url('pre-remove-course/'.$as->id)}}" > Remove </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
+            <main>
+                <div class="other-section">
+                    <ul class="nav nav-tabs justify-content-center">
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#pc"> Enroll Courses </a></li>
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#rc">Enrolled Courses</a></li>
+                       
+                    </ul>
 
-                        </table>
+                    <div class="tab-content ">
+                        <div id="pc" class="tab-pane active">
+                            <div class="container text-center">
+                        
+                                <div class="container">
+                                    @if($fg == 1 )
+                                    <form action="store-enroll" method="post">
+                                        {{ csrf_field() }}
+                                        
+                                        <table class="table text-center mt-5">
+                                            <thead>
+                                                <tr>
+                                                    <th>Semester</th>
+                                                    <th>Course Title </th>
+                                                    <th>Course Code </th>
+                                                    <th>Credits</th>
+                                                    <th>Type</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($row as $r)
+                                                    @if($r->course_sl)
+                                                        <tr>
+                                                            <td>{{ $r->semester}}</td>
+                                                            <td>{{ $r->course_title }} </td>
+                                                            <td>{{ $r->course_code }}</td>
+                                                            <td>{{ $r->credit}} </td>
+                                                            <td>
+                                                            <div class="form-group">
+                                                                    <select name="type[]" class="form-control text-center" >
+                                                                        <option value="Regular"> Regular </option>
+                                                                        <option value="Recourse"> Recourse </option>
+                                                                        <option value="Retake"> Retake </option>
+                                                                    </select>
+                                                                </div>
+                                                                
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="{{$r->id}}" name="select[]"  class="form-control">
+                                                                </div>
+                                                            
+
+                                                            </td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                                
+
+                                            </tbody>
+
+                                        </table>
+
+                                        <div class="form-group text-center my-5">
+                                            <button type="submit" class='btn btn-primary btn-block'> Enroll </button>
+                                        </div>
+
+                                        
+                                    </form>
+                                    @endif
+                                    @if($fg == 0 )
+                                        <div class="alert alert-warning my-5">
+                                            <strong> <h5> All courses enrolled  already !!! </h5></strong>
+                                        </div>
+                                    @endif
+                                </div>
+                                
+                            
+                            </div>
+                        </div>
+                    
+
+                    
+                        <div id="rc" class="tab-pane">
+                            <div class="container text-center my-5">
+                                @if(count($enr))
+                              
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Semester </th>
+                                            <th>Course Code </th>
+                                            <th>Course Title </th>
+                                            <th>Credits</th>
+                                            <th>Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($enr as $e )
+                                        <tr>
+                                            <td> {{ $e->semester }}</td>
+                                            <td> {{ $e->course_code }}</td>
+                                            <td> {{ $e->course_title }}</td>
+                                            <td> {{ $e->credit }}</td>
+                                            <td> Remove</td>
+                                        </tr>
+                                        @endforeach
+
+                                    </tbody>
+
+                                </table>
+                                @endif
+                                @if(!count($enr))
+                                    <div class="alert alert-danger text-center">
+                                        <strong> No Courses enrolled Yet! </strong>
+                                    </div>
+                                @endif
+                               
+
+                            
+                            </div>
+                        </div>
+                
                     </div>
-                    <div class="col-lg-2"></div>
                 </div>
-            </div>
-
+            
+            </main>
+    
+          
 
 
         </div>
     </div>
     
-
-
-
+  
+    
 @stop
-
-
-   
-
 

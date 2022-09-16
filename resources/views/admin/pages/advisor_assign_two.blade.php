@@ -178,13 +178,13 @@
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('enrollment')}}" class="sidenav-link">
+        <a href="{{url('course-detail')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Enrollment</div>
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('pre-enrollment')}}" class="sidenav-link">
+        <a href="{{url('course-detail')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Pre-Enrollment</div>
         </a>
@@ -238,97 +238,97 @@
 
 @section('content')
 
-<div class="card m-5">
-    <div class="card-header text-center">
-        <h4>Advisor Assign</h4>
-    </div>
-    
-@if ( Session::has('success'))
-    <div class="alert alert-success text-center">
-        <strong> {{  Session::get('success') }}</strong>
-    </div>
-@endif
-
-    <div class="card-body">
-        <div class="container">
-            <div class="row">
-
-            @if(Session::has('no'))
-                <div class="col-lg-3" ></div>
-                <div class="alert alert-success col-lg-6" role="alert">
-                    <h4 class="alert-heading">Well done!</h4>
-                    <p>All Studnets have assigned Advisor.No student is available without Adviosr.</p>
-                    <hr>
-                    <p class="mb-0">Have a good day,Chill!!!</p>
-                </div>
-            @endif
-
-            @if(Session::has('yes'))
-                <div class="col-lg-6 text-center">
-                    <form method='post'  action="{{url('store-advisor')}}" enctype="multipart/form-data" >
-                        {{ csrf_field() }}
-                        
-                        <div class="form-group">
-                            <label for="stu"> Select Student </label> 
-                            <select name="stu" class='form-control'>
-                            @foreach($stu as $s)
-                                <option value="{{ $s->id }}"> {{ $s->name }} </option>
-                            @endforeach
-                            </select>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label for="tec"> Select Teacher </label> 
-                            <select name="tec" class='form-control'>
-                            @foreach($tec as $t)
-                                <option value="{{ $t->id }}"> {{ $t->name }} </option>
-                            @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group"> 
-                            <input type="submit" value="Assign" class="btn btn-primary btn-block" >
-                        </div>
-
-                    </form>
-                </div>
-
-                <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header text-center">
-                                <h6>Student Without Advisor</h6>
-                            </div>
-                            <div class="card-body">
-                                <table class="text-center table">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Batch</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($stu as $s)
-                                            <tr>
-                                                <td>{{ $s->student_id }}</td>
-                                                <td>{{ $s->name }}</td>
-                                                <td>{{ $s->batch }}</td>
-
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                    
-                                </table>
-                            </div>
-                        </div>
-                
-                </div>
-            @endif  
-            </div>
+    <div class="card m-5">
+        <div class="card-header text-center">
+            <h4>Advisor Assign</h4>
         </div>
+        
+        @if ( Session::has('success'))
+            <div class="alert alert-success text-center">
+                <strong> {{  Session::get('success') }}</strong>
+            </div>
+        @endif
 
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+
+                @if(Session::has('no'))
+                    <div class="col-lg-3" ></div>
+                    <div class="alert alert-success col-lg-6" role="alert">
+                        <h4 class="alert-heading">Well done!</h4>
+                        <p>All Studnets have assigned Advisor.No student is available without Adviosr.</p>
+                        <hr>
+                        <p class="mb-0">Have a good day,Chill!!!</p>
+                    </div>
+                @endif
+
+                @if(Session::has('yes'))
+                    <div class="col-lg-6 text-center">
+                        <form method='post'  action="{{url('store-advisor')}}" enctype="multipart/form-data" >
+                            {{ csrf_field() }}
+                            
+                            <div class="form-group">
+                                <label for="stu"> Select Student </label> 
+                                <select name="stu" class='form-control'>
+                                @foreach($stu as $s)
+                                    <option value="{{ $s->id }}"> {{ $s->name }} </option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="tec"> Select Teacher </label> 
+                                <select name="tec" class='form-control'>
+                                @foreach($tec as $t)
+                                    <option value="{{ $t->id }}"> {{ $t->name }} </option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group"> 
+                                <input type="submit" value="Assign" class="btn btn-primary btn-block" >
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header text-center">
+                                    <h6>Student Without Advisor</h6>
+                                </div>
+                                <div class="card-body">
+                                    <table class="text-center table">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Name</th>
+                                                <th>Batch</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($stu as $s)
+                                                <tr>
+                                                    <td>{{ $s->student_id }}</td>
+                                                    <td>{{ $s->name }}</td>
+                                                    <td>{{ $s->batch }}</td>
+
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        
+                                    </table>
+                                </div>
+                            </div>
+                    
+                    </div>
+                @endif  
+                </div>
+            </div>
+
+        </div>
+    
     </div>
-   
-</div>
 
 
 

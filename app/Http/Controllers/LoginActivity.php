@@ -28,7 +28,8 @@ class LoginActivity extends Controller
                 Session::put('userrole' , $row->role ); 
                 Session::put('image' , $row->image); 
 
-                return redirect('dashboard');
+                if($row->role == 'admin' ) return redirect('dashboard');
+                if($row->role == 'student' ) return redirect('student-dashboard');
             
         }
         else{
@@ -37,7 +38,7 @@ class LoginActivity extends Controller
     }
     public function logout(){
         Session::forget('userrole');
-        return redirect('login-admin');
+        return redirect('login');
     }
 
 }
