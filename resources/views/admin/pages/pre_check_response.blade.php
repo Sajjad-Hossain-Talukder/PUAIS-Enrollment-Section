@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>Advisorship</title>
+    <title>{{ $row->session_name." ".$row->session_year }} : Check Response </title>
 @stop
 
 @section('intro')
@@ -127,7 +127,7 @@
                             <div class="demo-navbar-user nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                                     <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
-                                        <img src="thumbnail/{{ Session::get('image') }}" alt class="d-block ui-w-30 rounded-circle">
+                                        <img src="{{url('thumbnail/'.Session::get('image'))}}" alt class="d-block ui-w-30 rounded-circle">
                                         <span class="px-1 mr-lg-2 ml-2 ml-lg-0">{{ Session::get('username') }}</span>
                                     </span>
                                 </a>
@@ -178,13 +178,13 @@
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('course-detail')}}" class="sidenav-link">
+        <a href="{{url('enrollment')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Enrollment</div>
         </a>
     </li>
-    <li class="sidenav-item">
-        <a href="{{url('course-detail')}}" class="sidenav-link">
+    <li class="sidenav-item  active">
+        <a href="{{url('pre-enrollment')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Pre-Enrollment</div>
         </a>
@@ -201,7 +201,7 @@
             <div>Class Routine</div>
         </a>
     </li>
-    <li class="sidenav-item active">
+    <li class="sidenav-item">
         <a href="{{url('advisorship')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-archive"></i>
             <div>Advisorship</div>
@@ -238,143 +238,56 @@
 
 @section('content')
 
-    <div class="container my-5">
-        <div class="card">
-            <div class="text-center mt-5 mb-3">
-                <h4>Advisorship</h4>
-            </div>
 
-            <main>
-                <div class="other-section">
-                    <ul class="nav nav-tabs justify-content-center">
-                        <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#pc">Assign Advisor </a></li>
-                        <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#rc">Student Without Advisor </a></li>
-                    </ul>
-
-                    <div class="tab-content ">
-                        <div id="pc" class="tab-pane active">
-                            <div class="container my-5">
-                                <div class="row">
-                                    <div class="col-lg-3"></div>
-                                    <div class="col-lg-6">
-
-                                        @if ( Session::has('success'))
-                                            <div class="alert alert-success text-center">
-                                                <strong> {{  Session::get('success') }}</strong>
-                                            </div>
-                                        @endif
-
-                                            
-                                        @if(Session::has('no'))
-                                            
-                                            <div class="alert alert-success" role="alert">
-                                                <h4 class="alert-heading">Well done!</h4>
-                                                <p>All Studnets have assigned Advisor.No student is available without Adviosr.</p>
-                                                <hr>
-                                                <p class="mb-0">Have a good day,Chill!!!</p>
-                                            </div>
-                                        @endif
-
-                                        @if(Session::has('yes'))
-                                            <form method='post'  action="{{url('store-advisor')}}" enctype="multipart/form-data" >
-                                                {{ csrf_field() }}
-                                                
-                                                <div class="form-group">
-                                                    <label for="stu"> Select Student </label> 
-                                                    <select name="stu" class='form-control'>
-                                                    @foreach($stu as $s)
-                                                        <option value="{{ $s->id }}"> {{ $s->name }} </option>
-                                                    @endforeach
-                                                    </select>
-                                                </div>
-                                                <br>
-                                                <div class="form-group">
-                                                    <label for="tec"> Select Teacher </label> 
-                                                    <select name="tec" class='form-control'>
-                                                    @foreach($tec as $t)
-                                                        <option value="{{ $t->id }}"> {{ $t->name }} </option>
-                                                    @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="form-group"> 
-                                                    <button type="submit" class='btn btn-primary btn-block'> Assign </button>
-                                                </div>
-
-                                            </form>
-
-                                        @endif
-
-
-
-                                    </div>
-                                    <div class="col-lg-3"></div>
-                                </div>    
-                            </div>
+    <div class="container m-3">
+        <div class="row">
+            @foreach($det as $r )
+                <div class="col-lg-4 my-2">
+                    <div class="card p-1 rounded">
+                        <div class="card-header">
+                            <h5>{{ $r->course_title }}</h5>
+                            <p>   {{ $r->course_code }}  |  {{ $r->semester }}</p>
                         </div>
-                    
-
-                    
-                        <div id="rc" class="tab-pane">
-                            <div class="container my-5">
-                                <div class="row">
-                                    <div class="col-lg-3"></div>
-                                    <div class="col-lg-6">
-                                        @if(Session::has('no'))
-                                            <div class="alert alert-success" role="alert">
-                                                <h4 class="alert-heading">Well done!</h4>
-                                                <p>All Studnets have assigned Advisor.No student is available without Adviosr.</p>
-                                                <hr>
-                                                <p class="mb-0">Have a good day,Chill!!!</p>
-                                            </div>
-                                        @endif
-
-                                        @if(Session::has('yes'))
-                                            
-                                            <div class="card">
-
-                                                <div class="card-body">
-                                                    <table class="text-center table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Student Id</th>
-                                                                <th>Student Name</th>
-                                                                <th>Batch</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @foreach($stu as $s)
-                                                                <tr>
-                                                                    <td>{{ $s->student_id }}</td>
-                                                                    <td>{{ $s->name }}</td>
-                                                                    <td>{{ $s->batch }}</td>
-
-                                                                </tr>
-                                                            @endforeach
-                                                        </tbody>
-                                                        
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        
-                                        @endif
-
-
-                                    </div>
-                                    <div class="col-lg-3"></div>
-                                </div>  
-                            </div>
+                        <div class="card-body">
+                            <h6>Total Enrollment : {{$r->course_count}} </h6>
+                            <h6>Regular : {{ $r->regular }} | Recourse : {{ $r->recourse }} | Retake : {{ $r->retake }}</h6>
                         </div>
+                        <div class="card-footer text-center">
+                            <form method='post' action="{{url('check-details')}}">
+                                    {{ csrf_field() }}
+                                    
                 
+                                <div class="form-group">
+                                    <input type="hidden" name="sess" value="{{$row->id}}" class='form-control'>
+                                    <input type="hidden" name="cour" value="{{$r->id}}" class='form-control'>
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <button type="submit" class='btn btn-primary btn-block'> Show Details </button>
+                                </div>
+
+                            </form>
+                        </div>
                     </div>
                 </div>
+            @endforeach
             
-            </main>
-    
-          
 
 
         </div>
+
     </div>
+   
+
+   
+
 
 @stop
+
+
+
+
+
+
+
 

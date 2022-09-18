@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>Advisorship</title>
+    <title>{{ $row->course_title }} : Check Details </title>
 @stop
 
 @section('intro')
@@ -127,7 +127,7 @@
                             <div class="demo-navbar-user nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                                     <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
-                                        <img src="thumbnail/{{ Session::get('image') }}" alt class="d-block ui-w-30 rounded-circle">
+                                        <img src="{{url('thumbnail/'.Session::get('image'))}}" alt class="d-block ui-w-30 rounded-circle">
                                         <span class="px-1 mr-lg-2 ml-2 ml-lg-0">{{ Session::get('username') }}</span>
                                     </span>
                                 </a>
@@ -178,13 +178,13 @@
         </a>
     </li>
     <li class="sidenav-item">
-        <a href="{{url('course-detail')}}" class="sidenav-link">
+        <a href="{{url('enrollment')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Enrollment</div>
         </a>
     </li>
-    <li class="sidenav-item">
-        <a href="{{url('course-detail')}}" class="sidenav-link">
+    <li class="sidenav-item  active">
+        <a href="{{url('pre-enrollment')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Pre-Enrollment</div>
         </a>
@@ -201,7 +201,7 @@
             <div>Class Routine</div>
         </a>
     </li>
-    <li class="sidenav-item active">
+    <li class="sidenav-item">
         <a href="{{url('advisorship')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-archive"></i>
             <div>Advisorship</div>
@@ -238,101 +238,67 @@
 
 @section('content')
 
-    <div class="card m-5">
-        <div class="card-header text-center">
-            <h4>Advisor Assign</h4>
-        </div>
-        
-        @if ( Session::has('success'))
-            <div class="alert alert-success text-center">
-                <strong> {{  Session::get('success') }}</strong>
+
+    <div class="container my-4">
+        <div class="card">
+
+            <div class="card-header text-center ">
+                <h4>{{ $row->course_title }}</h4>
+                <p>{{ $row->course_code }}  |  {{ $row->semester }}</p>
             </div>
-        @endif
+            <div class="card-body">
+                <h5 class="text-center"> Enrolled Student Details </h5>
+                @if(count($stu))
 
-        <div class="card-body">
-            <div class="container">
-                <div class="row">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>Student ID </th>
+                            <th>Student Name </th>
+                            <th>Batch </th>
+                            <th>Enroll Type </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($stu as $s )
+                        <tr>
+                            <td>{{ $s->student_id }}</td>
+                            <td>{{ $s->name }}</td>
+                            <td>{{ $s->batch }}</td>
+                            <td>{{ $s->type }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
 
-                @if(Session::has('no'))
-                    <div class="col-lg-3" ></div>
-                    <div class="alert alert-success col-lg-6" role="alert">
-                        <h4 class="alert-heading">Well done!</h4>
-                        <p>All Studnets have assigned Advisor.No student is available without Adviosr.</p>
-                        <hr>
-                        <p class="mb-0">Have a good day,Chill!!!</p>
-                    </div>
+                </table>
+
+                @endif
+                @if(!count($stu))
+
+                <div class="alert alert-warning text-center">
+                    <strong> No Student Enrolled Yet !!! </strong>
+                </div>
+
                 @endif
 
-                @if(Session::has('yes'))
-                    <div class="col-lg-6 text-center">
-                        <form method='post'  action="{{url('store-advisor')}}" enctype="multipart/form-data" >
-                            {{ csrf_field() }}
-                            
-                            <div class="form-group">
-                                <label for="stu"> Select Student </label> 
-                                <select name="stu" class='form-control'>
-                                @foreach($stu as $s)
-                                    <option value="{{ $s->id }}"> {{ $s->name }} </option>
-                                @endforeach
-                                </select>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label for="tec"> Select Teacher </label> 
-                                <select name="tec" class='form-control'>
-                                @foreach($tec as $t)
-                                    <option value="{{ $t->id }}"> {{ $t->name }} </option>
-                                @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group"> 
-                                <input type="submit" value="Assign" class="btn btn-primary btn-block" >
-                            </div>
 
-                        </form>
-                    </div>
-
-                    <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-header text-center">
-                                    <h6>Student Without Advisor</h6>
-                                </div>
-                                <div class="card-body">
-                                    <table class="text-center table">
-                                        <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Name</th>
-                                                <th>Batch</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($stu as $s)
-                                                <tr>
-                                                    <td>{{ $s->student_id }}</td>
-                                                    <td>{{ $s->name }}</td>
-                                                    <td>{{ $s->batch }}</td>
-
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                        
-                                    </table>
-                                </div>
-                            </div>
-                    
-                    </div>
-                @endif  
-                </div>
             </div>
 
         </div>
-    
+        
+
     </div>
+   
 
-
-
+   
 
 
 @stop
+
+
+
+
+
+
+
 

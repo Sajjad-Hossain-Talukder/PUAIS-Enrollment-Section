@@ -237,48 +237,310 @@
 
 
 @section('content')
-    
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header text-center">
-                        <h3>Registration</h3>
-                    </div>
-                    <div class="card-body text-center">
-                        <div class="row">
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-3 dv">
-                                    
-                                    <div class="card my-3" >
-                                        <div class="card-body">
-                                            <a href="{{url('student-register')}}" class="stretched-link text-dark"> <h4>Student Register</h4> </a>
-                                        </div>
-                                    </div>
-                            </div>
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-3 dv">
-                                    
-                                    <div class="card my-3" >
-                                        <div class="card-body">
-                                            <a href="{{url('teacher-register')}}" class="stretched-link text-dark"> <h4>Teacher Register</h4> </a>
-                                        </div>
-                                    </div>
-                            </div>
-                            <div class="col-lg-2"></div>
-                            
-                        
 
+    <div class="container my-5">
+        <div class="card">
+            <div class="text-center mt-5 mb-3">
+                <h4>Registration</h4>
+            </div>
+
+            <main>
+                <div class="other-section">
+                    <ul class="nav nav-tabs justify-content-center">
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#pc">Student Registration</a></li>
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#rc">Teacher Registration</a></li>
+                    </ul>
+
+                    <div class="tab-content ">
+                        <div id="pc" class="tab-pane active">
+                            <div class="container my-5">
+                        
+                                @if ( Session::has('success'))
+                                    <div class="alert alert-success text-center">
+                                        <strong> {{  Session::get('success') }}</strong>
+                                    </div>
+                                @endif
+
+                                <form  method='post'  action="{{url('store-student')}}" enctype="multipart/form-data">
+                                    {{ csrf_field() }}
+                                    <div class="container my-5">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="stuname"> Student Name </label> 
+                                                    <input type="text" placeholder="First Name" name="fname" required class='form-control' >
+                                                    <input type="text" placeholder="Last Name" name="lname" required class='form-control' > 
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="faname">Father Name </label> 
+                                                    <input type="text" name="faname"  class='form-control' required >
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="moname" >Mother Name </label>
+                                                    <input type="text" name="moname" class='form-control' required > 
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="dob" > Date of Birth </label>
+                                                    <input type="date" name="dob" class='form-control' required >
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="gend"  > Gender  </label>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" class="form-check-input" name="gend" value="female" class='form-control' >Female
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" class="form-check-input" name="gend" value="male" class='form-control'>Male
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check disabled">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" class="form-check-input" name="gend" value="others" class='form-control' checked >Others
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                
+
+                                                <div class="form-group">
+                                                    <label for="dept" > Department </label> 
+                                                    <select name="dept" class='form-control' required  >
+                                                        <option value="Computer Science & Engineering - CSE">Computer Science & Engineering - CSE </option>
+                                                        <option value="Electrical & Electronics Engineering - EEE">Electrical & Electronics Engineering - EEE </option>
+                                                        <option value="Architecture">Architecture</option>
+                                                        <option value="BBA">BBA</option>
+                                                        <option value="Economics">Economics</option>
+                                                        <option value="Law">Law</option>
+                                                        <option value="Mathematics">Mathematics</option>
+                                                        <option value="Chemistry">Chemistry</option>
+                                                        <option value="Sociology & Sustainable Development">Sociology & Sustainable Development</option>
+                                                        <option value="CISCO Certified Network Associates(CCNA)">CISCO Certified Network Associates(CCNA)</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="sid" >Student ID </label required > 
+                                                    <input type="text" placeholder="Ex : 1803010201623" name="sid"  class='form-control' required> 
+                                                </div>
+
+
+                                            </div>
+                                            <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="batch" >Batch </label> 
+                                                        <input type="text"  name="batch" placeholder="Ex : 35" class='form-control' required> 
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="email">Email</label>
+                                                        <input type="email" name="email" class='form-control' required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="mbl"> Mobile</label>
+                                                        <input type="tel"  name="mobile" required class="form-control"> 
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="address">Address</label> 
+                                                        <input type="text" name="address" class='form-control' required>  
+                                                    </div>
+                                                    <br>
+
+                                                    <div class="form-group">
+                                                        <label for="image"  > Profile Image  </label> 
+                                                        <input type="file" name="image" class='form-control' required> 
+                                                    </div>
+                                                    <br>
+                                                        
+                                                    @if(Session::has('fail'))
+                                                        <div class="alert alert-danger text-center">
+                                                            <strong> {{  Session::get('fail') }}</strong>
+                                                        </div>
+                                                    @endif
+
+                                                    <div class="form-group">
+                                                        <label for="pass"> Password </label> 
+                                                        <input type="password"  name="pass" class='form-control' required> 
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="cpass">Confirm Password </label> <br>
+                                                        <input type="password" name="cpass" class='form-control' required> <br>
+                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center mb-5">
+                                        <button type="submit" class='btn btn-primary btn-block'> Register </button>
+                                    </div>
+
+                                </form>
+                            
+                            </div>
                         </div>
+                    
+
+                    
+                        <div id="rc" class="tab-pane">
+                            <div class="container my-5">
+                                @if ( Session::has('success'))
+                                    <div class="alert alert-success text-center">
+                                        <strong> {{  Session::get('success') }}</strong>
+                                    </div>
+                                @endif
+
+                                <form  method='post'  action="{{url('store-teacher')}}" enctype="multipart/form-data">
+
+                                    {{ csrf_field() }}
+                                    <div class="container my-5">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="stuname"> Teacher Name </label> 
+                                                    <input type="text" placeholder="First Name" name="fname" required class='form-control' >
+                                                    <input type="text" placeholder="Last Name" name="lname" required class='form-control' > 
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="faname">Father Name </label> 
+                                                    <input type="text" name="faname"  class='form-control' required >
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="moname" >Mother Name </label>
+                                                    <input type="text" name="moname" class='form-control' required > 
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="dob" > Date of Birth </label>
+                                                    <input type="date" name="dob" class='form-control' required >
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label for="gend"  > Gender  </label>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" class="form-check-input" name="gend" value="female" class='form-control' >Female
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" class="form-check-input" name="gend" value="male" class='form-control'>Male
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check disabled">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" class="form-check-input" name="gend" value="others" class='form-control' checked >Others
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                
+
+                                                <div class="form-group">
+                                                    <label for="dept" > Department </label> 
+                                                    <select name="dept" class='form-control' required  >
+                                                        <option value="Computer Science & Engineering - CSE">Computer Science & Engineering - CSE </option>
+                                                        <option value="Electrical & Electronics Engineering - EEE">Electrical & Electronics Engineering - EEE </option>
+                                                        <option value="Architecture">Architecture</option>
+                                                        <option value="BBA">BBA</option>
+                                                        <option value="Economics">Economics</option>
+                                                        <option value="Law">Law</option>
+                                                        <option value="Mathematics">Mathematics</option>
+                                                        <option value="Chemistry">Chemistry</option>
+                                                        <option value="Sociology & Sustainable Development">Sociology & Sustainable Development</option>
+                                                        <option value="CISCO Certified Network Associates(CCNA)">CISCO Certified Network Associates(CCNA)</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="tid" >Teacher ID </label required > 
+                                                    <input type="text" placeholder="Ex : 1803010201623" name="tid"  class='form-control' required> 
+                                                </div>
+
+                                        </div>
+                                        <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="desi" >Designation</label> 
+                                                    <input type="text"  name="desi"  class='form-control' required> 
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="email"  > Email </label>
+                                                    <input type="email" name="email" class='form-control' required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="mbl"> Mobile </label>
+                                                    <input type="tel"  name="mobile" required class="form-control"> 
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="address">Address </label> 
+                                                    <input type="text" name="address" class='form-control' required>  
+                                                </div>
+                                                <br>
+                                                
+                                                <div class="form-group">
+                                                    <label for="image"  > Profile Image  </label> 
+                                                    <input type="file" name="image" class='form-control' required> 
+                                                </div>
+                                                <br>
+                                                    
+                                                @if(Session::has('fail'))
+                                                    <div class="alert alert-danger text-center">
+                                                        <strong> {{  Session::get('fail') }}</strong>
+                                                    </div>
+                                                @endif
+
+                                                <div class="form-group">
+                                                    <label for="pass"> Password </label> 
+                                                    <input type="password"  name="pass" class='form-control' required> 
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="cpass">Confirm Password </label> <br>
+                                                    <input type="password" name="cpass" class='form-control' required> <br>
+                                                </div>
+
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                    <div class="text-center mb-5">
+                                        <button type="submit" class='btn btn-primary btn-block'> Register </button>
+                                    </div>
+
+                                </form>
+                                
+                               
+                               
+                            </div>
+                        </div>
+                
                     </div>
                 </div>
-                
-            </div>
             
+            </main>
+    
+          
+
+
         </div>
     </div>
-
-
 
 @stop
 

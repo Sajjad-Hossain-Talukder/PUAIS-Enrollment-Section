@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>{{ $row->session_name." ".$row->session_year }}</title>
+    <title>Pre-enrollment : {{ $row->session_name." ".$row->session_year }}</title>
 @stop
 
 @section('intro')
@@ -241,7 +241,7 @@
     <div class="container">
         <div class="card my-5">
             <div class="container border-bottom text-center p-4">
-                <h4>{{ $row->session_name." ".$row->session_year}}</h4>
+                <h4>Pre-enrollment : {{ $row->session_name." ".$row->session_year }}</h4>
             </div>
 
             <div class="container">
@@ -249,14 +249,14 @@
                 <div class="container text-center my-3">
                     <div class="row">
                                 
-                        <div class="col-lg-4 dv p-3">          
+                        <div class="col-lg-4 dv p-3 my-2">          
                             <a href="{{url('pre-all-assigned-course/'.$row->id)}}" class="stretched-link text-dark"> <h5>All Assigned Courses</h5> </a>
                         </div>
-                        <div class="col-lg-1">  </div>
-                        <div class="col-lg-7 dv p-3">          
+                        <div class="col-lg-1 my-2">  </div>
+                        <div class="col-lg-7 dv p-3 my-2">          
                             <a href="{{url('pre-add-new-course/'.$row->id)}}" class="stretched-link text-dark"> <h5>Add New Courses</h5> </a>
                         </div>
-                        <div class="col-lg-12 dv my-2 p-3">          
+                        <div class="col-lg-12 dv my-2 p-3 mt-2 mb-5">          
                             <a href="{{url('pre-check-response/'.$row->id)}}" class="stretched-link text-dark"> <h5> Check Response </h5> </a>
                         </div>               
                     </div>

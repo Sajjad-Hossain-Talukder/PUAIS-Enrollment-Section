@@ -1,9 +1,8 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>Teacher Registration </title>
+    <title>Student Registration </title>
 @stop
-
 
 @section('intro')
                         <div class="navbar-nav align-items-lg-center ml-auto">
@@ -240,7 +239,7 @@
 @section('content')
 
 <div class="text-center mt-5">
-    <h3>Teacher Register</h3>
+    <h3>Student Register</h3>
 </div>
 
 @if ( Session::has('success'))
@@ -249,14 +248,13 @@
     </div>
 @endif
 
-<div class="container my-5">
+<form  method='post'  action="{{url('store-student')}}" enctype="multipart/form-data">
+    {{ csrf_field() }}
+    <div class="container my-5">
     <div class="row">
         <div class="col-lg-6">
-            <form  method='post'  action="{{url('store-teacher')}}" enctype="multipart/form-data">
-
-                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="stuname"> Teacher Name </label> 
+                    <label for="stuname"> Student Name </label> 
                     <input type="text" placeholder="First Name" name="fname" required class='form-control' >
                     <input type="text" placeholder="Last Name" name="lname" required class='form-control' > 
                 </div>
@@ -316,62 +314,63 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="tid" >Teacher ID </label required > 
-                    <input type="text" placeholder="Ex : 1803010201623" name="tid"  class='form-control' required> 
+                    <label for="sid" >Student ID </label required > 
+                    <input type="text" placeholder="Ex : 1803010201623" name="sid"  class='form-control' required> 
                 </div>
 
-        </div>
-        <div class="col-lg-6">
-                <div class="form-group">
-                    <label for="desi" >Designation</label> 
-                    <input type="text"  name="desi"  class='form-control' required> 
-                </div>
 
-                <div class="form-group">
-                    <label for="email"  > Email </label>
-                    <input type="email" name="email" class='form-control' required>
-                </div>
-
-                <div class="form-group">
-                    <label for="mbl"> Mobile </label>
-                    <input type="tel"  name="mobile" required class="form-control"> 
-                </div>
-
-                <div class="form-group">
-                    <label for="address">Address </label> 
-                    <input type="text" name="address" class='form-control' required>  
-                </div>
-                <br>
-                
-                <div class="form-group">
-                    <label for="image"  > Profile Image  </label> 
-                    <input type="file" name="image" class='form-control' required> 
-                </div>
-                <br>
-                    
-                @if(Session::has('fail'))
-                    <div class="alert alert-danger text-center">
-                        <strong> {{  Session::get('fail') }}</strong>
+            </div>
+            <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="batch" >Batch </label> 
+                        <input type="text"  name="batch" placeholder="Ex : 35" class='form-control' required> 
                     </div>
-                @endif
 
-                <div class="form-group">
-                    <label for="pass"> Password </label> 
-                    <input type="password"  name="pass" class='form-control' required> 
-                </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class='form-control' required>
+                    </div>
 
-                <div class="form-group">
-                    <label for="cpass">Confirm Password </label> <br>
-                    <input type="password" name="cpass" class='form-control' required> <br>
-                </div>
+                    <div class="form-group">
+                        <label for="mbl"> Mobile</label>
+                        <input type="tel"  name="mobile" required class="form-control"> 
+                    </div>
 
+                    <div class="form-group">
+                        <label for="address">Address</label> 
+                        <input type="text" name="address" class='form-control' required>  
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="image"  > Profile Image  </label> 
+                        <input type="file" name="image" class='form-control' required> 
+                    </div>
+                    <br>
+                        
+                    @if(Session::has('fail'))
+                        <div class="alert alert-danger text-center">
+                            <strong> {{  Session::get('fail') }}</strong>
+                        </div>
+                    @endif
+
+                    <div class="form-group">
+                        <label for="pass"> Password </label> 
+                        <input type="password"  name="pass" class='form-control' required> 
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpass">Confirm Password </label> <br>
+                        <input type="password" name="cpass" class='form-control' required> <br>
+                    </div>
+
+            </div>
         </div>
     </div>
-</div>
 
-<div class="text-center mb-5">
-    <input type="submit" value="Register"  name="sub" class="btn btn-primary" >
-</div>
+    <div class="text-center mb-5">
+        <input type="submit" value="Register"  name="sub" class="btn btn-primary" >
+    </div>
 
 </form>
 

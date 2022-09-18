@@ -307,10 +307,8 @@ class AdminActivity extends Controller
 
 
     }
+
     public function advisorship(){
-        return view('admin.pages.advisor_assign');
-    }
-    public function assign_advisor(){
         
         $stu = DB::table('student_infos')->whereNotIn('id', function($q){
                     $q->select('student_sl')->from('advisorship_infos');})->get();
@@ -327,7 +325,7 @@ class AdminActivity extends Controller
 
 
 
-        return view('admin.pages.advisor_assign_two',['stu'=>$stu , 'tec'=>$tec ]);
+        return view('admin.pages.advisor_assign',['stu'=>$stu , 'tec'=>$tec ]);
        
     }
     public function store_advisor(Request $req){
@@ -520,6 +518,63 @@ class AdminActivity extends Controller
             return redirect()->back()->with('success','Succesfully Added!!');
         }
 
+    }
+
+    public function pre_check_response($id){
+
+        $row = DB::table('session_infos')->where('id',$id)->first();
+        /*
+        $course = DB::table('pre_enroll_course_infos')
+                    ->join('course_infos','course_infos.id','pre_enroll_course_infos.course_sl')
+                    ->groupBy('pre_enroll_course_infos.course_sl')
+                    ->where('session_sl',$id)
+                    ->get();
+                    */
+        $course = DB::table('pre_offer_course_infos')
+                    ->join('course_infos','course_infos.id','pre_offer_course_infos.course_sl')
+                    ->where('session_sl',  $id )
+                    ->get();
+
+        $det = [];
+
+        for( $i = 0 ; $i < count($course) ; $i++ ){
+
+            $course_count = DB::table('pre_enroll_course_infos')->where('course_sl', $course[$i]->course_sl )->count();
+            $regular = DB::table('pre_enroll_course_infos')->where('course_sl', $course[$i]->course_sl )->where('type','Regular')->count();
+            $retake = DB::table('pre_enroll_course_infos')->where('course_sl', $course[$i]->course_sl )->where('type','Retake')->count();
+            $recourse = DB::table('pre_enroll_course_infos')->where('course_sl', $course[$i]->course_sl )->where('type','Recourse')->count();
+
+            $object = (object) [
+                'id' =>  $course[$i]->id,
+                'course_code' => $course[$i]->course_code,
+                'semester' => $course[$i]->semester,
+                'course_title' => $course[$i]->course_title,
+                'course_count' => $course_count,
+                'regular' => $regular,
+                'retake' => $retake,
+                'recourse' => $recourse
+              ];
+
+            array_push($det, $object);
+                    
+        }
+         return view('admin.pages.pre_check_response',['row'=>$row,'det'=>$det]);
+    }
+
+    public function check_details( Request $req){
+
+        //echo $req->sess." ".$req->cour;
+        $row = DB::table('course_infos')->where('id',$req->cour)->first();
+
+        $stu = DB::table('pre_enroll_course_infos')
+                ->join('student_infos','student_infos.id','pre_enroll_course_infos.student_sl')
+                ->join('course_infos','course_infos.id','pre_enroll_course_infos.course_sl')
+                ->where('course_sl','=',$req->cour)
+                ->where('session_sl',$req->sess )
+                ->orderby('type','desc')
+                ->get();
+        
+        return view('admin.pages.check_details',['row'=>$row,'stu'=>$stu]);
     }
 
 

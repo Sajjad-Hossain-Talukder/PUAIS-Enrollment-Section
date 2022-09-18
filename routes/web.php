@@ -81,7 +81,6 @@ Route::post('store-student',[AdminActivity::class,'store_student'])->middleware(
 Route::get('teacher-register',[AdminActivity::class,'teacher_register'])->middleware('adminLogin');
 Route::post('store-teacher',[AdminActivity::class,'store_teacher'])->middleware('adminLogin');
 Route::get('advisorship',[AdminActivity::class,'advisorship'])->middleware('adminLogin');
-Route::get('assign-advisor',[AdminActivity::class,'assign_advisor'])->middleware('adminLogin');
 Route::post('store-advisor',[AdminActivity::class,'store_advisor'])->middleware('adminLogin');
 
 Route::get('session-section',[AdminActivity::class,'session_section'])->middleware('adminLogin');
@@ -108,6 +107,8 @@ Route::get('pre-enrollment-offer-course/{id}',[AdminActivity::class,'pre_enrollm
 Route::get('pre-all-assigned-course/{id}',[AdminActivity::class,'pre_all_assigned_course'])->middleware('adminLogin');
 Route::get('pre-add-new-course/{id}',[AdminActivity::class,'pre_add_new_course'])->middleware('adminLogin');
 Route::post('pre-add-course/{id}',[AdminActivity::class,'pre_add_course'])->middleware('adminLogin');
+Route::get('pre-check-response/{id}',[AdminActivity::class,'pre_check_response'])->middleware('adminLogin');
+Route::post('check-details',[AdminActivity::class,'check_details'])->middleware('adminLogin');
 
 
 

@@ -1,5 +1,4 @@
  
- 
     <!-- Core scripts -->
     <script src="assets/js/pace.js"></script>
     <script src="assets/js/jquery-3.3.1.min.js"></script>
