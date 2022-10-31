@@ -247,7 +247,7 @@
                 <p>{{ $row->course_code }}  |  {{ $row->semester }}</p>
             </div>
             <div class="card-body">
-                <h5 class="text-center"> Enrolled Student Details </h5>
+                <h5 class="text-center p-3"> Enrolled Student Details </h5>
                 @if(count($stu))
 
                 <table class="table text-center">

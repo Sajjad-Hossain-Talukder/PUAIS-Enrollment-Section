@@ -235,11 +235,29 @@
                 <h4>Pre-Enrollment</h4>
             </div>
 
+            @if(Session::has('close'))
+
+            <div class="container" >
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="alert alert-danger col-lg-6">
+                        <h5>{{ Session::get('close') }}</h5>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+            </div>
+            
+
+            @endif
+            @if(Session::has('close')==null)
             <main>
                 <div class="other-section">
                     <ul class="nav nav-tabs justify-content-center">
                         <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#pc"> Enroll Courses </a></li>
                         <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#rc">Enrolled Courses</a></li>
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#tc">Active Session </a></li>
+
+
                        
                     </ul>
 
@@ -272,7 +290,7 @@
                                                             <td>{{ $r->course_code }}</td>
                                                             <td>{{ $r->credit}} </td>
                                                             <td>
-                                                            <div class="form-group">
+                                                                <div class="form-group">
                                                                     <select name="type[]" class="form-control text-center" >
                                                                         <option value="Regular"> Regular </option>
                                                                         <option value="Recourse"> Recourse </option>
@@ -285,11 +303,10 @@
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="checkbox" value="{{$r->id}}" name="select[]"  class="form-control">
                                                                 </div>
-                                                            
-
                                                             </td>
                                                         </tr>
                                                     @endif
+                                                   
                                                 @endforeach
                                                 
 
@@ -328,6 +345,7 @@
                                             <th>Semester </th>
                                             <th>Course Code </th>
                                             <th>Course Title </th>
+                                            <th>Course Type</th>
                                             <th>Credits</th>
                                             <th>Action</th>
 
@@ -339,8 +357,38 @@
                                             <td> {{ $e->semester }}</td>
                                             <td> {{ $e->course_code }}</td>
                                             <td> {{ $e->course_title }}</td>
+                                            <td> {{ $e->type }}</td>
                                             <td> {{ $e->credit }}</td>
-                                            <td> Remove</td>
+                                            <td>  
+                                                <a class="btn btn-danger" data-toggle="modal" data-target="#myModal{{$e->id}}"> Remove </a>
+                                                            <!-- The Modal -->
+                                                <div class="modal fade" id="myModal{{$e->id}}">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <!-- Modal Header -->
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Remove Confirmation</h4>
+                                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                        </div>
+
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body">
+                                                                            Are you sure you want to remove <b>{{$e->course_title}}</b>? 
+                                                                        </div>
+
+                                                                        <!-- Modal footer -->
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                                                                            {{ Session::put('session_sl',$e->course_sl)}}
+                                                                            <a class="btn btn-danger" href="{{url('remove-enroll/'.$e->course_sl)}}"> YES</a>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                </div>
+
+
+                                            </td>
                                         </tr>
                                         @endforeach
 
@@ -358,12 +406,32 @@
                             
                             </div>
                         </div>
+                        <div id="tc" class="tab-pane">
+                            <div class="container text-center">
+                                @if(Session::has('close') )
+                                    <div class="alert alert-danger text-center m-5 pt-3">
+                                            <strong> <h3>No Active Session Available</h3> </strong>
+                                    </div>
+                                   
+                                @endif 
+
+                                @if(Session::has('sess') )
+                                    <div class="alert alert-success text-center m-5 pt-3">
+                                            <strong> <h3>{{ Session::get('sess')  }} </h3></strong>
+                                    </div>
+                                @endif 
+
+
+                            
+                            </div>
+                        </div>
+
                 
                     </div>
                 </div>
             
             </main>
-    
+            @endif
           
 
 

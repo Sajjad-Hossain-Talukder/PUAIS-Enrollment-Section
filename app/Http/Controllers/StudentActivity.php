@@ -25,8 +25,8 @@ class StudentActivity extends Controller
 {
     public function dashboard(){
         if(Session::get('userrole')== 'student') {
-            $row = DB::table('student_infos')->where('email',Session::get('useremail'))->first();
 
+            $row = DB::table('student_infos')->where('email',Session::get('useremail'))->first();
             $adv = DB::table('advisorship_infos')
                     ->join('teacher_infos','teacher_infos.id','advisorship_infos.teacher_sl')
                     ->where('student_sl',$row->id)
@@ -37,10 +37,19 @@ class StudentActivity extends Controller
     }
     public function pre_enrollment(){
 
+        Session::forget('close');
+
         $sess = DB::table('activate_session_infos')
                 ->join('session_infos','session_infos.id','activate_session_infos.session_sl') 
                 ->first();
 
+       
+
+        if($sess==null){
+            Session::put('close','Pre-Enrollment is been Over. Wait for next pre-enrollment.');
+            return view('student.pages.pre_enrollment');
+        }
+        else Session::put('sess',$sess->session_name." ".$sess->session_year);
 
         $row =  DB::table('pre_offer_course_infos')
                 ->join('course_infos','course_infos.id','pre_offer_course_infos.course_sl')
@@ -75,6 +84,8 @@ class StudentActivity extends Controller
     
         return view('student.pages.pre_enrollment',['row'=>$row ,'fg'=>$fg , 'enr'=>$enr ]);
     }
+
+
     public function store_enroll( Request $req){
 
         $sess = DB::table('activate_session_infos')
@@ -84,21 +95,67 @@ class StudentActivity extends Controller
         $stu = DB::table('student_infos')
                 ->where('email',Session::get('useremail')) 
                 ->first();
-            
-        $d = count($req->select); 
-        for( $i = 0 ; $i < $d ; $i++ ){
-            $obj = new Pre_enroll_course_info() ; 
-            $obj->session_sl = $sess->id ; 
-            $obj->student_sl = $stu->id ; 
-            $obj->course_sl = $req->select[$i];
-            $obj->type = $req->type[$i];
-            $obj->save();
+
+        $row =  DB::table('pre_offer_course_infos')
+                ->join('course_infos','course_infos.id','pre_offer_course_infos.course_sl')
+                ->where('pre_offer_course_infos.session_sl',$sess->id)
+                ->orderby('nsemester','asc')
+                ->get();
+
+        $val = DB::table('pre_enroll_course_infos')
+            ->where('pre_enroll_course_infos.session_sl',$sess->session_sl)
+            ->where('pre_enroll_course_infos.student_sl',$stu->id )
+            ->get();
+
+    
+        foreach($row as $r ){
+            foreach($val as $v ){
+                if($r->course_sl == $v->course_sl ){
+                    $r->course_sl = 0 ; 
+                } 
+            }
         }
 
-        return redirect()->back();
-            
-       
-        
+        $d = count($req->select); 
 
+        $l = count($row);
+        $cnt = -1 ; 
+
+        for( $i = 0 ; $i < $l ; $i++ ){
+            if($row[$i]->course_sl != 0 ){
+                $cnt += 1 ; 
+                for($j = 0 ; $j < $d ; $j++ ){
+                    if($req->select[$j] == $row[$i]->id  ){
+                        $obj = new Pre_enroll_course_info() ; 
+                        $obj->session_sl = $sess->id ; 
+                        $obj->student_sl = $stu->id ; 
+                        $obj->course_sl = $req->select[$j];
+                        $obj->type = $req->type[$cnt];
+                        $obj->save();
+
+                    }
+                }
+            }
+        }
+        return redirect()->back();
+    
+    }
+
+    public function remove_enroll($id){
+        $sess = DB::table('activate_session_infos')
+            ->join('session_infos','session_infos.id','activate_session_infos.session_sl') 
+            ->first();
+
+        $stu = DB::table('student_infos')
+            ->where('email',Session::get('useremail')) 
+            ->first();
+
+        DB:: table('pre_enroll_course_infos')
+            ->where('session_sl',$sess->id)
+            ->where('student_sl',$stu->id)
+            ->where('course_sl',$id)
+            ->delete();
+        
+        return redirect()->back();
     }
 }

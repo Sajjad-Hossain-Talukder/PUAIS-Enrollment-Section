@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>Add New Course</title>
+    <title>Check Overlap</title>
 @stop
 
 @section('intro')
@@ -127,7 +127,7 @@
                             <div class="demo-navbar-user nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                                     <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
-                                        <img src="thumbnail/{{ Session::get('image') }}" alt class="d-block ui-w-30 rounded-circle">
+                                        <img src="{{url('thumbnail/'.Session::get('image'))}}" alt class="d-block ui-w-30 rounded-circle">
                                         <span class="px-1 mr-lg-2 ml-2 ml-lg-0">{{ Session::get('username') }}</span>
                                     </span>
                                 </a>
@@ -171,7 +171,7 @@
             <div>Teacher-Student Details</div>
         </a>
     </li>
-    <li class="sidenav-item active">
+    <li class="sidenav-item">
         <a href="{{url('course-detail')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Course Details</div>
@@ -183,7 +183,7 @@
             <div>Enrollment</div>
         </a>
     </li>
-    <li class="sidenav-item">
+    <li class="sidenav-item  active">
         <a href="{{url('pre-enrollment')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Pre-Enrollment</div>
@@ -237,84 +237,68 @@
 
 
 @section('content')
-                            @if ( Session::has('fail'))
-                                <div class="alert alert-danger">
-                                    <strong> {{  Session::get('fail') }}</strong>
+
+
+    <div class="container mt-5">
+        <div class="row">
+                    @foreach($ans as $a )
+                        @if($a[3])
+                        <div class="col-lg-4">
+                            <div class="card rounded shadow  mb-5 bg-white rounded">
+                                <div class="card-header">
+                                    <h5>{{ $a[0] }}</h5>
+                                    <p>   {{ $a[1] }}  |  {{ $a[2] }}</p>
                                 </div>
-                            @endif
+                                <div class="card-body">
+                                    <h6>Total Overlap : {{$a[3]}} </h6>
+                                    <table class="table text-center">
+                                        <thead>
+                                            <tr>
+                                                @if($a[2] != 'First' ) <th> 1st </th> @endif
+                                                @if($a[2] != 'Second' ) <th> 2nd </th> @endif
+                                                @if($a[2] != 'Third' ) <th> 3rd </th> @endif
+                                                @if($a[2] != 'Fourth' ) <th> 4th </th> @endif
+                                                @if($a[2] != 'Fifth' ) <th> 5th </th> @endif
+                                                @if($a[2] != 'Sixth' ) <th> 6th </th> @endif
+                                                @if($a[2] != 'Seventh' ) <th> 7th </th> @endif
+                                                @if($a[2] != 'Eighth' ) <th> 8th </th> @endif
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                       <tr>
+                                            @if($a[2] != 'First' ) <td>{{ $res[$a[4]][1] }}</td>@endif
+                                            @if($a[2] != 'Second' )<td>{{ $res[$a[4]][2] }}</td>@endif
+                                            @if($a[2] != 'Third' ) <td>{{ $res[$a[4]][3] }}</td>@endif
+                                            @if($a[2] != 'Fourth' ) <td>{{ $res[$a[4]][4] }}</td>@endif
+                                            @if($a[2] != 'Fifth' ) <td>{{ $res[$a[4]][5] }}</td>@endif
+                                            @if($a[2] != 'Sixth' ) <td>{{ $res[$a[4]][6] }}</td>@endif
+                                            @if($a[2] != 'Seventh' ) <td>{{ $res[$a[4]][7] }}</td>@endif
+                                            @if($a[2] != 'Eighth' ) <td>{{ $res[$a[4]][8] }}</td>@endif
+                                            </tr>
+                                        
+                                        </tbody>
 
-    
-  <div class="card m-4 border-rounded">
-    <div class="card-header text-center">
-        <h4>Add New Course </h4>
-    </div>
-    
-    <div class="card-body">
-        @if ( Session::has('success'))
-            <div class="alert alert-success text-center">
-                <strong> {{  Session::get('success') }}</strong>
-            </div>
-        @endif
-
-        <form method='post' action="{{url('store-course')}}">
-                {{ csrf_field() }}
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="form-group my-3 ">
-                            <label for="sm">Semester</label> <br>
-                            <select name="sm" class='form-control'>
-                                <option value="1"> First</option>
-                                <option value="2"> Second </option>
-                                <option value="3"> Third </option>
-                                <option value="4"> Fourth </option>
-                                <option value="5"> Fifth </option>
-                                <option value="6"> Sixth </option>
-                                <option value="7"> Seventh </option>
-                                <option value="8"> Eighth </option>
-                            </select>
-                            
-                    </div>
-                    <div class="form-group my-3 ">
-                            <label for="pcc">Prerequisite Course Title</label> 
-                            <select name="pcc" class='form-control'>
-                            @foreach($row as $r )
-                                <option value="{{$r->id}}">{{ $r->course_title }}</option>
-                            @endforeach
-                            </select>
-                    </div>
-
-                </div>
-                <div class="col-lg-4">
-                    <div class="form-group my-3 ">
-                            <label for="cc">Course Code</label> 
-                            <input type="text" name="cc" class='form-control'>
-                    </div>
-                    <div class="form-group my-3 ">
-                        <label for="credit">Credits</label> 
-                        <input type="number" step="0.1" name="credit" class='form-control'>
-                    </div>    
-                </div>
-                <div class="col-lg-4">
-                    <div class="form-group my-3 ">
-                            <label for="ct">Course Title</label> 
-                            <input type="text" name="ct" class='form-control'>
-                    </div>               
-                    <div class="form-group text-center mt-5">
-                        <button type="submit" class='btn btn-primary btn-block'> Add Course </button>
-                    </div>
-
-                </div>
-               
-                
-            </div>
+                                                                        
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    @endforeach
         </div>
-        </form>
     </div>
+   
 
    
 
-  </div>
-   
+
 @stop
+
+
+
+
+
+
+
 

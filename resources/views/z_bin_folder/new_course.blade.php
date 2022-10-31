@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>Pre-enrollment : {{ $row->session_name." ".$row->session_year }}</title>
+    <title>Add New Course</title>
 @stop
 
 @section('intro')
@@ -127,7 +127,7 @@
                             <div class="demo-navbar-user nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                                     <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
-                                        <img src="{{url('thumbnail/'.Session::get('image'))}}" alt class="d-block ui-w-30 rounded-circle">
+                                        <img src="thumbnail/{{ Session::get('image') }}" alt class="d-block ui-w-30 rounded-circle">
                                         <span class="px-1 mr-lg-2 ml-2 ml-lg-0">{{ Session::get('username') }}</span>
                                     </span>
                                 </a>
@@ -171,7 +171,7 @@
             <div>Teacher-Student Details</div>
         </a>
     </li>
-    <li class="sidenav-item">
+    <li class="sidenav-item active">
         <a href="{{url('course-detail')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Course Details</div>
@@ -183,7 +183,7 @@
             <div>Enrollment</div>
         </a>
     </li>
-    <li class="sidenav-item  active">
+    <li class="sidenav-item">
         <a href="{{url('pre-enrollment')}}" class="sidenav-link">
             <i class="sidenav-icon fas fa-chalkboard-teacher"></i>
             <div>Pre-Enrollment</div>
@@ -238,45 +238,84 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="card my-5">
-            <div class="container border-bottom text-center p-4">
-                <h4>Pre-enrollment : {{ $row->session_name." ".$row->session_year }}</h4>
+        @if ( Session::has('fail'))
+            <div class="alert alert-danger">
+                <strong> {{  Session::get('fail') }}</strong>
             </div>
+        @endif
 
-            <div class="container">
-                
-                <div class="container text-center my-3">
-                    <div class="row">
-                                
-                        <div class="col-lg-4 dv p-3 my-2">          
-                            <a href="{{url('pre-all-assigned-course/'.$row->id)}}" class="stretched-link text-dark"> <h5>All Assigned Courses</h5> </a>
-                        </div>
-                        <div class="col-lg-1 my-2">  </div>
-                        <div class="col-lg-7 dv p-3 my-2">          
-                            <a href="{{url('pre-add-new-course/'.$row->id)}}" class="stretched-link text-dark"> <h5>Add New Courses</h5> </a>
-                        </div>
-                        <div class="col-lg-12 dv my-2 p-3 mt-2 mb-5">          
-                            <a href="{{url('pre-check-response/'.$row->id)}}" class="stretched-link text-dark"> <h5> Check Response </h5> </a>
-                        </div>               
-                    </div>
-                </div>
-
-            </div>
-
-
-        </div>
+    
+  <div class="card m-4 border-rounded">
+    <div class="card-header text-center">
+        <h4>Add New Course </h4>
     </div>
     
+    <div class="card-body">
+        @if ( Session::has('success'))
+            <div class="alert alert-success text-center">
+                <strong> {{  Session::get('success') }}</strong>
+            </div>
+        @endif
 
+        <form method='post' action="{{url('store-course')}}">
+                {{ csrf_field() }}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group my-3 ">
+                            <label for="sm">Semester</label> <br>
+                            <select name="sm" class='form-control'>
+                                <option value="1"> First</option>
+                                <option value="2"> Second </option>
+                                <option value="3"> Third </option>
+                                <option value="4"> Fourth </option>
+                                <option value="5"> Fifth </option>
+                                <option value="6"> Sixth </option>
+                                <option value="7"> Seventh </option>
+                                <option value="8"> Eighth </option>
+                            </select>
+                            
+                    </div>
+                    <div class="form-group my-3 ">
+                            <label for="pcc">Prerequisite Course Title</label> 
+                            <select name="pcc" class='form-control'>
+                            @foreach($row as $r )
+                                <option value="{{$r->id}}">{{ $r->course_title }}</option>
+                            @endforeach
+                            </select>
+                    </div>
 
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group my-3 ">
+                            <label for="cc">Course Code</label> 
+                            <input type="text" name="cc" class='form-control'>
+                    </div>
+                    <div class="form-group my-3 ">
+                        <label for="credit">Credits</label> 
+                        <input type="number" step="0.1" name="credit" class='form-control'>
+                    </div>    
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group my-3 ">
+                            <label for="ct">Course Title</label> 
+                            <input type="text" name="ct" class='form-control'>
+                    </div>               
+                    <div class="form-group text-center mt-5">
+                        <button type="submit" class='btn btn-primary btn-block'> Add Course </button>
+                    </div>
 
+                </div>
+               
+                
+            </div>
+        </div>
+        </form>
+    </div>
+
+   
+
+  </div>
+   
 @stop
-
-
-
-
-
-
-
 

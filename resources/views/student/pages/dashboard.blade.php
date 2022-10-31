@@ -306,7 +306,7 @@
                     <div class="card-body text-center">
                         
                         
-                        <img class="img-fluid img-thumbnail rounded p-3  mx-auto d-block" src="thumbnail/{{$adv->image}}"> <hr>
+                        <img class="img-fluid img-thumbnail rounded p-3  mx-auto d-block" src="thumbnail/{{ $adv->image }}"> <hr>
                              
                         <div >  <h6> {{ $adv->name }}</h6> </div>
                         <div >  

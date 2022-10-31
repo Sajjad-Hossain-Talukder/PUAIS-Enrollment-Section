@@ -9,11 +9,11 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-   
 
     <!-- Google fonts -->
     <link href="{{ url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700') }}" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    
     
 
     <!-- Icon fonts -->

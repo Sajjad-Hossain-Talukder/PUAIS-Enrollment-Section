@@ -12,6 +12,7 @@ use Session ;
 class LoginActivity extends Controller
 {
     public function checklogin(Request $req){
+        
         $em = $req->em ; 
         $pass = md5($req->pass);
 
@@ -40,5 +41,40 @@ class LoginActivity extends Controller
         Session::forget('userrole');
         return redirect('login');
     }
+    public function change_password(){
+        return view('admin.pages.change_password');
+    }
+    public function login(){
+
+        if( Session::get('userrole') == 'admin')  return redirect('dashboard'); 
+        if( Session::get('userrole') == 'student') return redirect('student-dashboard'); 
+        return view('login');
+    }
+
+    public function store_password(Request $req){
+
+        if(Session::get('userrole')=='admin'){
+            $row = DB::table('all_users')->where('email',Session::get('useremail'))->first(); 
+            if( md5($req->opass) == $row->password ){
+                if( $req->npass == $req->cnpass ){
+                    DB::table('all_users')->update(['password'=>md5($req->npass)])->where('email',Session::get('useremail'));
+                }
+                else redirect()->back()->with('match','password Mismatch');
+
+            }
+            else redirect()->back()->with('err','Old Password is wrong.Try again!!!');
+
+        }
+
+        if(Session::get('userrole')=='student'){
+            
+        }
+
+      
+        return view('login');
+    }
+
+
+
 
 }

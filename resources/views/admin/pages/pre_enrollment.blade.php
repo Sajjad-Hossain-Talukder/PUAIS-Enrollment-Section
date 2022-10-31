@@ -246,7 +246,7 @@
                 <div class="row">
                     @foreach($row as $r)
                         <div class="col-lg-4 my-1">
-                            <a href="{{url('pre-enrollment-offer-course/'.$r->id)}}" class ="btn btn-primary btn-block"> {{$r->session_name." ".$r->session_year }}</a>
+                            <a href="{{url('pre-enrollment-activity/'.$r->id)}}" class ="btn btn-primary btn-block"> {{$r->session_name." ".$r->session_year }}</a>
                         </div>
                     @endforeach
                 </div>

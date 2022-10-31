@@ -238,51 +238,218 @@
 
 @section('content')
     
-  <div class="card m-4 border-rounded">
-    <div class="card-header text-center">
-        <h4>Course Details</h4>
-    </div>
-    
-    <div class="card-body text-center">
-        <div class="container">
-            <div class="row">
-                
-                <div class="col-lg-4 dv m-3">          
-                    <div class="card " >
-                        <div class="card-body">
-                            <a href="{{url('all-course')}}" class="stretched-link text-dark"> <h5>All Courses</h5> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7 dv m-3">    
-                    <div class="card" >
-                        <div class="card-body">
-                            <a href="{{url('add-new-course')}}" class="stretched-link text-dark"> <h5>Add New Courses</h5> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7 dv m-3">          
-                    <div class="card " >
-                        <div class="card-body">
-                            <a href="{{url('offer-course')}}" class="stretched-link text-dark"> <h5> Offer Courses </h5> </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 dv m-3">    
-                    <div class="card" >
-                        <div class="card-body">
-                            <a href="{{url('offer-courses')}}" class="stretched-link text-dark"> <h5> Hello </h5> </a>
-                        </div>
-                    </div>
-                </div>
-                       
+  
+    <div class="container my-5">
+        <div class="card">
+            <div class="text-center mt-5 mb-3">
+                <h4>Course Details</h4>
             </div>
+
+            <main>
+                <div class="other-section">
+                    <ul class="nav nav-tabs justify-content-center">
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#pc">Search Courses</a></li>
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#rc">All Courses</a></li>
+                        <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#tc">Add New Course</a></li>
+                    </ul>
+
+                    <div class="tab-content ">
+                        <div id="pc" class="tab-pane active">
+                            <div class="container my-5">
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <form action="{{url('show-course')}}" method="post">
+                                            {{ csrf_field() }}
+                                            <div class="form-group">
+                                                <label for="sem"> Serach by  Semester </label>
+                                                <select name="sem" class='form-control'>
+                                                    <option value="0">--Select Semester--</option>
+                                                    <option value="1">First</option>
+                                                    <option value="2">Second</option>
+                                                    <option value="3">Third</option>
+                                                    <option value="4">Fourth</option>
+                                                    <option value="5">Fifth</option>
+                                                    <option value="6">Sixth</option>
+                                                    <option value="7">Seventh</option>
+                                                    <option value="8">Eighth</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary btn-block">Show</button>
+
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                    <div class="col-lg-6 text-center">
+                                        @if(Session::has('sem'))
+                                        <h6 > Semester : {{Session::get('sem') }}</h6>
+                                        @endif
+
+                                        @if(Session::has('row'))
+                                            <table class="table"> 
+                                                <tr>
+                                                    <th>Course Title </th>
+                                                    <th>Course Code </th>
+                                                    <th>Credits</th>
+                                                </tr>
+                            
+                                            @foreach( Session::get('row') as $r )
+                                                <tr>
+                                                    <td>{{ $r->course_title }} </td>
+                                                    <td>{{ $r->course_code }}</td>
+                                                    <td>{{ $r->credit }}</td>
+                                                </tr>
+                                            @endforeach
+
+                                            </table>
+                                        @endif
+                                        @if(Session::has('not_found'))
+                                            <div class="alert alert-warning text-center">
+                                                <strong>{{Session::get('not_found')}}</strong>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                        
+                              
+
+                            </div>
+                        </div>
+
+
+                        <div id="rc" class="tab-pane">
+                            <div class="container my-5">
+
+                                <table class="table text-center"> 
+                                    <thead>
+                                        <tr>
+                                            <th>Semester</th>
+                                            <th>Course Code</th>
+                                            <th>Course Title</th>
+                                            <th>Prerequisite Course Title</th>
+                                            <th>Credits</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($rows as $p)
+                                            <tr>
+                                                <td>{{$p->semester}}</td>
+                                                <td>{{$p->course_code}}</td>
+                                                <td>{{$p->ct}}</td>
+                                                <td>{{$p->pt}}</td>
+                                                <td>{{$p->credit}}</td>
+                                                <td>
+                                                    <a href="#" class="btn btn-primary">
+                                                        update
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+
+                                </table>
+
+                        
+                            </div>
+                        </div>
+                    
+
+                    
+                        <div id="tc" class="tab-pane">
+                            <div class="container my-5">
+
+                                @if ( Session::has('fail'))
+                                    <div class="alert alert-danger">
+                                        <strong> {{  Session::get('fail') }}</strong>
+                                    </div>
+                                @endif
+
+                                    
+            
+                                    
+                                        @if ( Session::has('success'))
+                                            <div class="alert alert-success text-center">
+                                                <strong> {{  Session::get('success') }}</strong>
+                                            </div>
+                                        @endif
+
+                                        <form method='post' action="{{url('store-course')}}">
+                                                {{ csrf_field() }}
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="form-group my-3 ">
+                                                            <label for="sm">Semester</label> <br>
+                                                            <select name="sm" class='form-control'>
+                                                                <option value="1"> First</option>
+                                                                <option value="2"> Second </option>
+                                                                <option value="3"> Third </option>
+                                                                <option value="4"> Fourth </option>
+                                                                <option value="5"> Fifth </option>
+                                                                <option value="6"> Sixth </option>
+                                                                <option value="7"> Seventh </option>
+                                                                <option value="8"> Eighth </option>
+                                                            </select>
+                                                            
+                                                    </div>
+                                                    <div class="form-group my-3 ">
+                                                            <label for="pcc">Prerequisite Course Title</label> 
+                                                            <select name="pcc" class='form-control'>
+                                                                <option value="0">--Select Pre-requisite Course--</option>
+                                                            @foreach($course as $r )
+                                                                <option value="{{$r->id}}">{{ $r->course_title }}</option>
+                                                            @endforeach
+                                                            </select>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group my-3 ">
+                                                            <label for="cc">Course Code</label> 
+                                                            <input type="text" name="cc" class='form-control'>
+                                                    </div>
+                                                    <div class="form-group my-3 ">
+                                                        <label for="credit">Credits</label> 
+                                                        <input type="number" step="0.1" name="credit" class='form-control'>
+                                                    </div>    
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group my-3 ">
+                                                            <label for="ct">Course Title</label> 
+                                                            <input type="text" name="ct" class='form-control'>
+                                                    </div>               
+                                                    <div class="form-group text-center mt-5">
+                                                        <button type="submit" class='btn btn-primary btn-block'> Add Course </button>
+                                                    </div>
+
+                                                </div>
+                                            
+                                                
+                                            </div>
+                                        </div>
+                                        </form>
+                                   
+                                
+                               
+                            </div>
+                        </div>
+                
+                    </div>
+                </div>
+            
+            </main>
+    
+          
+
+
         </div>
     </div>
 
-   
+  
 
-  </div>
    
 @stop
 

@@ -1,7 +1,7 @@
 @extends('admin.layouts.dash')
 
 @section('title')
-    <title>Dashboard</title>
+    <title>Change Password</title>
 @stop
 
 @section('intro')
@@ -151,7 +151,7 @@
     <ul class="sidenav-inner py-1">
 
     <!-- Dashboards -->
-    <li class="sidenav-item active">
+    <li class="sidenav-item">
         <a href="{{url('dashboard')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-home"></i>
             <div>Dashboard</div>
@@ -189,7 +189,7 @@
             <div>Pre-Enrollment</div>
         </a>
     </li>
-    <li class="sidenav-item">
+    <li class="sidenav-item active">
         <a href="{{url('session-section')}}" class="sidenav-link">
             <i class="sidenav-icon feather icon-list"></i>
             <div>Sessions & Sections</div>
@@ -238,177 +238,66 @@
 
 @section('content')
 
-    <div class="container mt-5">
-            <div class="card">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-2"></div>
-                            <div class="col-lg-2 p-3">
-                                <img src="thumbnail/{{ Session::get('image')}}"  class="img-fluid rounded float-right" alt="{{ Session::get('username') }}" >
-                            </div>
-                            <div class="col-lg-6 text-center pt-5">
-                                <h4>Hello ,  <span style="color:#1461AA; font-size:28px;"> {{ Session::get('username') }} </span>  ! </h4>
-                                <h3>Welcome to P U A I S</h3>
-                            </div>
-                            <div class="col-lg-2"></div>
-                        </div>
-                    </div>
+    <div class="container mt-4">
+        <div class="card">
+            <div class="text-center mt-5 mb-3">
+                <h4>Change Password</h4>
             </div>
-    </div>
-    
-    <div class="container mt-3 mb-5">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header text-center">
-                        <h4>Academic Info</h4>
-                    </div>
-                    <div class="card-body text-center">
-                    <div class="row">
-                    <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="{{url('registration')}}" class="stretched-link text-dark"> <h5>Student Resister</h5> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="{{url('registration')}}" class="stretched-link text-dark"> <h5>Teacher Resister</h5> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="advisorship" class="stretched-link text-dark"> <h5>Advisor Assign</h5> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="pre-enrollment" class="stretched-link text-dark" ><h5>Pre-Enrollment</h5></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark" ><h5>Enrollment</h5></a>
-                                </div>
-                            </div>
-                        </div>
 
 
-                        <div class="col-lg-4">
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="session" class="stretched-link text-dark"><h5>Adding Session</h5></a>
-                                </div>
-                            </div>
-                        </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6">
 
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="admin_offer_courses.php" class="stretched-link text-dark"><h5>Offer Courses</h5></a>  
+                            @if(Session::has('err'))
+                                <div class="alert alert-danger">
+                                    <strong> {{Session::get('err')}}</strong>
                                 </div>
-                            </div>           
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="admin_all_courses.php" class="stretched-link text-dark"><h5>All Courses</h5></a>  
-                                </div>
-                            </div>  
-                        </div>
+                            @endif
 
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h5>Student Details</h5> </a>
-                                </div>
-                            </div>
-                        </div>
+                            @if(Session::has('err'))
+                            @endif
+                            <form  method='post'  action="{{url('store-password')}}" enctype="multipart/form-data">
+                                    {{ csrf_field() }}
+                                   
+                                        
+                                                    <div class="form-group">
+                                                        <label for="opass">Old password </label> 
+                                                        <input type="password"  name="opass" class='form-control' required> 
+                                                    </div>
+                                                
+                                                    <div class="form-group">
+                                                        <label for="npass"> New Password </label> 
+                                                        <input type="password"  name="npass" class='form-control' required> 
+                                                    </div>
 
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h5>Teacher Details</h5> </a>
-                                </div>
-                            </div>
-                        </div>
+                                                    <div class="form-group">
+                                                        <label for="cnpass">Confirm New Password </label> <br>
+                                                        <input type="password" name="cnpass" class='form-control' required> <br>
+                                                    </div>
+                                                    <div class="text-center mb-5">
+                                                        <button type="submit" class='btn btn-warning btn-block'> Change </button>
+                                                    </div>
 
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h5> Results</h5> </a>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h5> Payment </h5> </a>
-                                </div>
-                            </div>
-                        </div>
+                            </form>
 
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h5> Exam Schedule</h5> </a>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h5>Class Routine</h5> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="#" class="stretched-link text-dark"> <h5> Notices</h5> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            
-                            <div class="card my-3 dv" >
-                                <div class="card-body bg-light">
-                                    <a href="admin_change_password.php" class="stretched-link text-dark"> <h5> Change Password</h5> </a>
-                                </div>
-                            </div>
-                        </div>
-                    
 
                     </div>
-                    </div>
+                    <div class="col-lg-3"></div>
                 </div>
-                
             </div>
-            
+
+         
+    
+          
+
+
         </div>
     </div>
-
+    
+    
 @stop
 

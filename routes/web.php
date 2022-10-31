@@ -69,9 +69,14 @@ Route::post('admin-registration',[AdminActivity::class,'adminassign']);
 
 
 
-Route::get('login',function(){return view('admin.pages.login');});
+Route::get('login',[LoginActivity::class,'login']);
 Route::post('check-login',[LoginActivity::class,'checklogin']);
 Route::get('logout',[LoginActivity::class,'logout']);
+
+Route::get('change-password',[LoginActivity::class,'change_password'])->middleware('adminLogin');
+Route::post('store-password',[LoginActivity::class,'store_password'])->middleware('adminLogin');
+
+
 
 Route::get('dashboard',[AdminActivity::class,'dashboard'])->middleware('adminLogin');
 Route::get('profile',[AdminActivity::class,'profile'])->middleware('adminLogin');
@@ -95,6 +100,7 @@ Route::get('store-activate-session/{id}',[AdminActivity::class,'store_activate_s
 Route::get('course-detail',[AdminActivity::class,'course_detail'])->middleware('adminLogin');
 Route::get('add-new-course',[AdminActivity::class,'add_new_course'])->middleware('adminLogin');
 Route::post('store-course',[AdminActivity::class,'store_course'])->middleware('adminLogin');
+Route::post('show-course',[AdminActivity::class,'show_course'])->middleware('adminLogin');
 Route::get('all-course',[AdminActivity::class,'all_course'])->middleware('adminLogin');
 Route::get('offer-course',[AdminActivity::class,'offer_course'])->middleware('adminLogin');
 
@@ -103,18 +109,23 @@ Route::post('add-course',[AdminActivity::class,'add_course'])->middleware('admin
 
 
 Route::get('pre-enrollment',[AdminActivity::class,'pre_enrollment'])->middleware('adminLogin');
-Route::get('pre-enrollment-offer-course/{id}',[AdminActivity::class,'pre_enrollment_offer_course'])->middleware('adminLogin');
-Route::get('pre-all-assigned-course/{id}',[AdminActivity::class,'pre_all_assigned_course'])->middleware('adminLogin');
-Route::get('pre-add-new-course/{id}',[AdminActivity::class,'pre_add_new_course'])->middleware('adminLogin');
+Route::get('pre-enrollment-activity/{id}',[AdminActivity::class,'pre_enrollment_activity'])->middleware('adminLogin');
 Route::post('pre-add-course/{id}',[AdminActivity::class,'pre_add_course'])->middleware('adminLogin');
+Route::get('pre-remove-course/{id}',[AdminActivity::class,'pre_remove_course'])->middleware('adminLogin');
+
+
 Route::get('pre-check-response/{id}',[AdminActivity::class,'pre_check_response'])->middleware('adminLogin');
 Route::post('check-details',[AdminActivity::class,'check_details'])->middleware('adminLogin');
 
-
+Route::get('check-overlap',[AdminActivity::class,'check_overlap'])->middleware('adminLogin');
 
 Route::get('student-dashboard',[StudentActivity::class,'dashboard'])->middleware('studentLogin');
 Route::get('student-pre-enrollment',[StudentActivity::class,'pre_enrollment'])->middleware('studentLogin');
 Route::post('store-enroll',[StudentActivity::class,'store_enroll'])->middleware('studentLogin');
+Route::get('remove-enroll/{id}',[StudentActivity::class,'remove_enroll'])->middleware('studentLogin');
+
+
+
 
 
 
