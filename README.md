@@ -21,4 +21,5 @@ During Enrollment, sometimes it happens that, <b>student has exceeded the limit 
     </li>
 </ul>
 
-<b>Note : </b> 
+<b>Note : </b> This Project was a part of  the academic course of <b>Software Development</b> under the Supervision of Anik Sen sir.
+        
